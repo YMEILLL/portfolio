@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Serveur | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Youenn<span>Meillarec</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="transition-link">Accueil</a></li>
+                    <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
+                    <li>
+                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
+                            <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
+                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container section-padding">
+        <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
+        <div class="mission-detail" style="margin-top: 30px;">
+            <h2>Mise en production d'un Serveur Physique</h2>
+            
+            <h3>Contexte & Problématique</h3>
+            <p><strong>Contexte :</strong> Mon poste de développement (16 Go RAM) était saturé par les machines virtuelles nécessaires aux simulations réseaux complexes.</p>
+            <p><strong>Objectif :</strong> Déployer une infrastructure dédiée et robuste en datacenter pour héberger nos environnements de test.</p>
+
+            <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
+
+            <h3>Réalisations</h3>
+            <p><strong>1. Installation Hardware :</strong> Récupération et rackage d'un serveur <strong>Dell R730</strong> dans une baie informatique à Orange Atalante. Gestion du câblage réseau et de l'alimentation redondée.</p>
+            
+            <img src="img/a27df107384f6855f4a2487881f90117.webp" alt="Serveur Dell R730 installé en baie" class="content-img">
+
+            <p><strong>2. Administration Système :</strong> Installation de l'OS <strong>Ubuntu Server 20.04</strong> pour sa stabilité et sa compatibilité native avec Docker.</p>
+            
+            <p><strong>3. Sécurité & Accès :</strong> Configuration d'un accès distant via un <strong>Bastion</strong> (machine de rebond SSH) pour administrer le serveur sans connexion directe au réseau de management.</p>
+            <div style="background: #2d2d2d; color: #fff; padding: 20px; border-radius: 6px; margin: 20px 0; font-family: 'Consolas', monospace;">
+                Flux SSH :<br>
+                <span style="color:var(--primary)">Poste Local (PuTTY)</span> ➔ <span style="color:#aaa">Bastion (10.192.x.x)</span> ➔ <span style="color:#fff">Serveur DELL (Réseau Privé)</span>
+            </div>
+
+            <div class="reflexive-box">
+                <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
+                <p>Cette mission m'a sorti du cadre purement "logiciel" pour me confronter à la réalité physique du réseau.</p>
+                
+                <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
+                <p>L'environnement datacenter est hostile (bruit, froid, accès restreint). Il a fallu préparer l'intervention minutieusement. La configuration du rebond SSH via PuTTY était une nouveauté technique pour moi.</p>
+
+                <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
+                <p>J'ai travaillé en binôme avec M. Tan Tran pour l'installation physique (transfert de compétences). Pour l'accès, j'ai configuré des clés SSH et automatisé la connexion au Bastion pour rendre l'administration fluide depuis mon bureau.</p>
+
+                <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
+                <ul style="margin-left: 20px; font-weight: 600;">
+                    <li>AC22.02 : Mettre en place un accès distant sécurisé (Bastion SSH).</li>
+                    <li>AC21.06 : Travailler en équipe pour développer ses compétences.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
+    <script>
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let target = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => window.location.href = target, 500);
+            });
+        });
+    </script>
+</body>
+</html>

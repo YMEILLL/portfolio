@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission EVE-NG | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Youenn<span>Meillarec</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="transition-link">Accueil</a></li>
+                    <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
+                    <li>
+                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
+                            <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
+                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container section-padding">
+        <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
+        <div class="mission-detail" style="margin-top: 30px;">
+            <h2>Simulation Réseaux Avancée sur EVE-NG</h2>
+            
+            <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
+                <div>
+                    <h3>Contexte & Objectifs</h3>
+                    <p><strong>Contexte :</strong> Ma première mission d'envergure consistait à maîtriser l'outil d'émulation EVE-NG pour concevoir des topologies de test réalistes simulant un cœur de réseau opérateur.</p>
+                    <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 routeurs (Cisco/Juniper) capable de supporter des pannes et d'isoler des flux clients.</p>
+                </div>
+                
+                <div class="sidebar-wrapper">
+                    <a href="https://www.eve-ng.net/" target="_blank" class="sidebar-logo-container" title="Site officiel EVE-NG">
+                        <img src="img/Logo_EVE_Color-1-e1573260071537.png" alt="Logo EVE-NG" class="sidebar-logo-img">
+                    </a>
+                    <div class="card" style="padding: 1rem; background: #f9f9f9; border-top: none;">
+                        <h4 style="margin-bottom:10px;">Outils Techniques</h4>
+                        <ul style="margin-left:20px; list-style-type: square;">
+                            <li>EVE-NG Pro</li>
+                            <li>Wireshark</li>
+                            <li>Cisco IOS XR / Juniper Junos</li>
+                            <li>Protocoles IGP (IS-IS)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border:0; border-top:1px solid #eee; margin:30px 0;">
+            
+            <h3>Réalisations Techniques</h3>
+            <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
+                <li><strong>Routage Statique & Résilience :</strong> Configuration manuelle des routes et simulation de pannes (coupure d'interface) pour valider le basculement via des routes flottantes.</li>
+                <li><strong>Segmentation VRF :</strong> Implémentation du <em>Virtual Routing and Forwarding</em> pour créer des tables de routage isolées sur un même équipement physique.</li>
+                <li><strong>Routage Dynamique IS-IS :</strong> Migration vers le protocole IS-IS (Link-State) pour automatiser la propagation des routes et la convergence du réseau.</li>
+            </ul>
+
+            <div class="reflexive-box">
+                <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
+                <p>Cette mission a été fondamentale pour faire le lien entre la théorie (CCNA) et la pratique complexe.</p>
+                
+                <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
+                <p>La configuration manuelle de 6 routeurs est fastidieuse et sujette aux erreurs humaines. De plus, EVE-NG consommait énormément de ressources sur mon poste, limitant la taille de la topologie. L'absence d'automatisation native (tout se fait à la souris) était un frein.</p>
+
+                <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
+                <p>J'ai utilisé Wireshark intégré pour débuguer mes configurations IS-IS en visualisant les paquets Hello. J'ai documenté mes procédures pour ne pas refaire les mêmes erreurs. Surtout, cette expérience m'a poussé à chercher une alternative plus légère et scriptable : Containerlab.</p>
+
+                <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
+                <ul style="margin-left: 20px; font-weight: 600;">
+                    <li>AC21.01 : Configurer et dépanner le routage dynamique (IS-IS).</li>
+                    <li>AC21.05 : Identifier les réseaux opérateurs (VRF/Architecture).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
+    <script>
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let target = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => window.location.href = target, 500);
+            });
+        });
+    </script>
+</body>
+</html>

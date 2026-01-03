@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil | Portfolio Youenn Meillarec</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Youenn<span>Meillarec</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active transition-link">Accueil</a></li>
+                    <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
+                    <li>
+                        <a href="missions.html" class="transition-link">Missions <i class="fas fa-caret-down" style="font-size: 0.8em;"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
+                            <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
+                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-split">
+        <div class="container split-container">
+            
+            <div class="profile-side">
+                <div class="photo-wrapper">
+                    <img src="img/photo-profil.jpg" alt="Youenn Meillarec" class="main-photo">
+                </div>
+                <div class="badge">Alternant R&T</div>
+                <div class="intro-text">
+                    <h1>Youenn <br><span>Meillarec</span></h1>
+                    <p class="role">Assistant Ingénieur Réseaux & Innovation</p>
+                    <p class="quote">"De la virtualisation des réseaux IP à l'automatisation des infrastructures chez Orange Innovation."</p>
+                </div>
+            </div>
+
+            <div class="nav-side">
+                
+                <div class="partners-logos">
+                    <img src="img/Orange_logo.png" alt="Orange" title="Orange Innovation">
+                    
+                    <img src="img/logo_iut.png" alt="IUT Grand Ouest" title="IUT Grand Ouest Normandie">
+                    
+                    <img src="img/2020_UNICAEN_LOGO_isotype-signature_horizontal_noir.svg" alt="Unicaen" title="Université de Caen">
+                    
+                    <img src="img/logo_IUT_R_T_long_small-400x69-2.png" alt="BUT R&T" title="BUT R&T">
+                </div>
+
+                <h2>Explorer le Portfolio</h2>
+                <div class="nav-cards">
+                    <a href="entreprise.html" class="nav-card transition-link">
+                        <div class="icon-box"><i class="fas fa-building"></i></div>
+                        <div class="card-content">
+                            <h3>Contexte Entreprise</h3>
+                            <p class="preview">Découvrir Orange Innovation, l'équipe Routing et ma place dans l'organisation.</p>
+                        </div>
+                        <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                    
+                    <a href="missions.html" class="nav-card transition-link">
+                        <div class="icon-box"><i class="fas fa-network-wired"></i></div>
+                        <div class="card-content">
+                            <h3>Missions Techniques</h3>
+                            <p class="preview">EVE-NG, Installation Serveur Dell R730, Automatisation Containerlab & DevOps.</p>
+                        </div>
+                        <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                    
+                    <a href="bilan.html" class="nav-card transition-link">
+                        <div class="icon-box"><i class="fas fa-chart-pie"></i></div>
+                        <div class="card-content">
+                            <h3>Bilan de Compétences</h3>
+                            <p class="preview">Auto-évaluation, progression technique (Hard skills) et compétences humaines.</p>
+                        </div>
+                        <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container"><p>&copy; 2026 Youenn Meillarec - Portfolio Académique</p></div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let target = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => window.location.href = target, 500);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entreprise | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Youenn<span>Meillarec</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="transition-link">Accueil</a></li>
+                    <li><a href="entreprise.html" class="active transition-link">Entreprise</a></li>
+                    <li>
+                        <a href="missions.html" class="transition-link">Missions <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
+                            <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
+                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container section-padding">
+        <h2>Orange Innovation : Le Moteur Technologique</h2>
+        
+        <div class="grid-3" style="grid-template-columns: 2fr 1fr;">
+            
+            <div class="mission-detail">
+                <h3><i class="fas fa-sitemap" style="color:var(--primary)"></i> Mon Environnement : Innovation / Networks</h3>
+                <p>Mon alternance se déroule au sein d'<strong>Orange Innovation</strong>, la division responsable de la conception et de la validation des technologies futures du Groupe. Contrairement aux entités commerciales, notre rôle est d'être l'usine de conception technique pour toutes les filiales mondiales.</p>
+                
+                <h4 style="margin-top: 25px; margin-bottom: 10px;">Les 4 Missions Clés de la Division</h4>
+                <ul style="margin-left: 20px; list-style-type: none;">
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--primary); margin-right:10px;"></i><strong>Catalogue Technique :</strong> Définir les équipements (routeurs, cœurs 5G) référencés pour le Groupe.</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--primary); margin-right:10px;"></i><strong>Pilotage Industriel :</strong> Gérer les relations et appels d'offres avec les constructeurs (Cisco, Juniper, Nokia).</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--primary); margin-right:10px;"></i><strong>Validation :</strong> Tester intensivement les solutions logicielles et matérielles avant déploiement.</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--primary); margin-right:10px;"></i><strong>Recherche :</strong> Préparer les ruptures technologiques (6G, IA, SRv6).</li>
+                </ul>
+
+                <h3 style="margin-top: 30px;"><i class="fas fa-user-tag" style="color:var(--primary)"></i> Mon Rôle : Assistant Ingénieur Routing</h3>
+                <p>J'ai intégré l'équipe <strong>Routing</strong> du département IPN (IP Networks). Mon rôle est d'assurer l'interface entre les besoins théoriques d'architecture et la réalité opérationnelle des tests.</p>
+                
+                <div style="background: #f4f6f8; padding: 15px; border-left: 4px solid var(--primary); margin-top: 15px;">
+                    <strong>Ma mission au quotidien :</strong> Concevoir, déployer et maintenir des environnements de test (physiques et virtuels) pour permettre aux experts de valider les architectures de demain. Je transforme des scénarios complexes en topologies automatisées.
+                </div>
+            </div>
+
+            <div class="sidebar-wrapper">
+                <div class="sidebar-logo-container">
+                    <img src="img/Orange_logo.png" alt="Logo Orange" class="sidebar-logo-img">
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><h3>Fiche Identité</h3></div>
+                    <div class="card-body">
+                        <p><strong>Entité :</strong> Orange Innovation</p>
+                        <p><strong>Direction :</strong> WNI (Wireline Networks & Infrastructure)</p>
+                        <p><strong>Département :</strong> IPN (IP Networks)</p>
+                        <p><strong>Lieu :</strong> Cesson-Sévigné (Atalante)</p>
+                        <p><strong>Tuteur :</strong> M. Guillaume Gryszata</p>
+                        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                        <div class="tag">R&D</div>
+                        <div class="tag">Backbone IP</div>
+                        <div class="tag">Architecture</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec - Portfolio Académique</p></div></footer>
+    <script>
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let target = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => window.location.href = target, 500);
+            });
+        });
+    </script>
+</body>
+</html>

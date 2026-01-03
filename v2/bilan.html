@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilan | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Youenn<span>Meillarec</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="transition-link">Accueil</a></li>
+                    <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
+                    <li>
+                        <a href="missions.html" class="transition-link">Missions <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
+                            <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
+                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bilan.html" class="active transition-link">Bilan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container section-padding">
+        <h2>Bilan de Compétences & Perspectives</h2>
+        
+        <div class="mission-detail">
+            
+            <h3><i class="fas fa-chart-line" style="color:var(--primary)"></i> Mon Évolution Professionnelle</h3>
+            <p><strong>D'étudiant à Assistant Ingénieur :</strong> Au début de l'alternance, ma vision des réseaux était théorique. Mon intégration chez Orange m'a confronté aux réalités du terrain : contraintes de sécurité, limitations physiques et nécessité d'optimisation. J'ai progressivement gagné en autonomie, passant de l'exécution à la conception d'architectures automatisées.</p>
+
+            <div class="grid-3" style="margin-top: 30px; gap: 20px;">
+                <div class="card" style="background: #f9f9f9; border-top: none;">
+                    <div class="card-body">
+                        <h4 style="color:var(--primary); margin-bottom: 10px;">Soft Skills Développés</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li><i class="fas fa-check" style="color:green; margin-right:5px;"></i> Autonomie & Recherche</li>
+                            <li><i class="fas fa-check" style="color:green; margin-right:5px;"></i> Communication technique</li>
+                            <li><i class="fas fa-check" style="color:green; margin-right:5px;"></i> Rigueur méthodologique</li>
+                            <li><i class="fas fa-check" style="color:green; margin-right:5px;"></i> Curiosité technologique</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" style="background: #f9f9f9; border-top: none; grid-column: span 2;">
+                    <div class="card-body">
+                        <h4 style="color:var(--primary); margin-bottom: 10px;">Bilan Critique</h4>
+                        <p><strong>Réussites :</strong> Maîtrise de l'environnement Linux serveur et des outils DevOps (Docker/Git) appliqués au réseau.</p>
+                        <p style="margin-top:10px;"><strong>Axes d'amélioration :</strong> Au début, j'hésitais trop à poser des questions. J'ai appris que solliciter l'expertise de l'équipe tôt permet de gagner un temps précieux et d'éviter des impasses.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 40px;">Matrice des Compétences Techniques</h3>
+            
+            <div style="margin-top: 25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:5px;">
+                    <span>RT1 - Administrer (Routage dynamique, CLI)</span>
+                    <span style="color:var(--primary)">85%</span>
+                </div>
+                <div class="skill-bar"><span class="skill-fill" style="width: 85%;"></span></div>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:5px;">
+                    <span>RT2 - Connecter (Virtualisation, Architecture)</span>
+                    <span style="color:var(--primary)">80%</span>
+                </div>
+                <div class="skill-bar"><span class="skill-fill" style="width: 80%;"></span></div>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:5px;">
+                    <span>RT3 - Automatisation (Bash, YAML, Git)</span>
+                    <span style="color:var(--primary)">70%</span>
+                </div>
+                <div class="skill-bar"><span class="skill-fill" style="width: 70%;"></span></div>
+            </div>
+
+            <div class="reflexive-box" style="margin-top: 50px; background-color: #e8f4fd; border-left-color: #2980b9;">
+                <h3 style="color: #2980b9;">Perspectives & Projet Professionnel</h3>
+                <p>Cette année a confirmé mon orientation vers le <strong>NetDevOps</strong>. L'alliance du réseau et du développement est pour moi l'avenir de l'infrastructure.</p>
+                <p style="margin-top:10px;"><strong>Objectifs court terme :</strong> Réaliser mon projet qui est de monter une topologie avec plus de 10 routeurs et de monter un protocole de routage complexe pour pouvoir tester plus tard un routeur physique sur cette topologie virtuelle.</p>
+                <p style="margin-top:10px;"><strong>Vision long terme :</strong> Intégrer une école d'ingénieur spécialisée en Architecture Réseaux & Cybersécurité.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
+    <script>
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let target = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => window.location.href = target, 500);
+            });
+        });
+    </script>
+</body>
+</html>

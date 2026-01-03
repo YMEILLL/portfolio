@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missions | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Youenn<span>Meillarec</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="transition-link">Accueil</a></li>
+                    <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
+                    <li>
+                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down" style="font-size: 0.8em;"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
+                            <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
+                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container section-padding">
+        <h2>Mes Missions Significatives</h2>
+        <p style="margin-bottom: 2rem;">Une progression vers l'automatisation : de la simulation graphique à l'Infrastructure as Code.</p>
+
+        <div class="tools-banner">
+            
+            <div class="tool-item">
+                <a href="https://www.eve-ng.net/" target="_blank" title="Visiter le site officiel EVE-NG">
+                    <div class="tool-logo-container">
+                        <img src="img/Logo_EVE_Color-1-e1573260071537.png" alt="Logo EVE-NG">
+                    </div>
+                    <span>Émulation Graphique</span>
+                </a>
+            </div>
+            
+            <div class="tool-divider"></div>
+
+            <div class="tool-item">
+                <a href="https://containerlab.dev/" target="_blank" title="Visiter le site officiel Containerlab">
+                    <div class="tool-logo-container">
+                        <img src="img/containerlab_export_white_ink.svg" alt="Logo Containerlab">
+                    </div>
+                    <span>Automatisation (IaC)</span>
+                </a>
+            </div>
+
+        </div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-header"><h3>1. EVE-NG & Routage</h3></div>
+                <div class="card-body">
+                    <p>Création de topologies complexes (6 routeurs), routage statique et dynamique IS-IS, et analyse Wireshark.</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tag">EVE-NG</span> <span class="tag">IS-IS</span>
+                    </div>
+                    <a href="mission-eve.html" class="btn transition-link" style="width:100%;">Voir le détail</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>2. Infrastructure & Serveur</h3></div>
+                <div class="card-body">
+                    <p>Installation physique d'un serveur Dell R730, déploiement d'Ubuntu Server et sécurisation SSH via Bastion.</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tag">Hardware</span> <span class="tag">Linux</span>
+                    </div>
+                    <a href="mission-server.html" class="btn transition-link" style="width:100%;">Voir le détail</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>3. Containerlab (Auto)</h3></div>
+                <div class="card-body">
+                    <p>Migration vers Docker pour optimiser la RAM. Création de scripts Bash et définition de topologies en YAML.</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tag">Docker</span> <span class="tag">DevOps</span>
+                    </div>
+                    <a href="mission-clab.html" class="btn transition-link" style="width:100%;">Voir le détail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec - Portfolio Académique</p></div></footer>
+    <script>
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let target = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => window.location.href = target, 500);
+            });
+        });
+    </script>
+</body>
+</html>
