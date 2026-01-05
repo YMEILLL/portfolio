@@ -32,93 +32,52 @@
 
     <div class="container section-padding">
         <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
+        
         <div class="mission-detail" style="margin-top: 30px;">
-            <h2>Mise en production d'un Serveur Physique</h2>
+            <h2>Mission 2 : Déploiement d'une Infrastructure Dédiée</h2>
             
-            <h3>Contexte & Problématique</h3>
-            <p><strong>Contexte :</strong> Mon poste de développement (16 Go RAM) était saturé par les machines virtuelles nécessaires aux simulations réseaux complexes.</p>
-            <p><strong>Objectif :</strong> Déployer une infrastructure dédiée et robuste en datacenter pour héberger nos environnements de test.</p>
+            <h3><i class="fas fa-search" style="color:var(--primary)"></i> Problématique : L'échec du test local</h3>
+            <p>Pour gagner en autonomie vis-à-vis d'EVE-NG et passer à l'automatisation, j'ai choisi la technologie <strong>Containerlab</strong>. J'ai d'abord tenté de déployer cet environnement sur mon poste de travail (PC Portable Pro).</p>
+            <p><strong>Le constat fut immédiat :</strong> Les images de routeurs (vJunos/cRPD), bien que conteneurisées, demandent beaucoup de ressources. Avec mes 16 Go de RAM, je ne pouvais lancer que 2 routeurs avant saturation. Impossible donc de simuler une topologie complexe de 5 à 10 routeurs.</p>
 
             <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
 
-            <h3>Réalisations</h3>
-            <p><strong>1. Installation Hardware :</strong> Récupération et rackage d'un serveur <strong>Dell R730</strong> dans une baie informatique à Orange Atalante. Gestion du câblage réseau et de l'alimentation redondée.</p>
-            
-            <img src="img/a27df107384f6855f4a2487881f90117.webp" alt="Serveur Dell R730 installé en baie" class="content-img">
+            <h3>La Solution : Un Serveur "Bare Metal" Dell R730</h3>
+            <p>Pour lever cette contrainte matérielle, j'ai récupéré et remis en état un serveur d'entreprise. L'objectif : disposer de ma propre plateforme de calcul pour héberger mes labs Docker sans limite de ressources.</p>
 
-            <p><strong>2. Administration Système :</strong> Installation de l'OS <strong>Ubuntu Server 20.04</strong> pour sa stabilité et sa compatibilité native avec Docker.</p>
-            
-            <p><strong>3. Sécurité & Accès :</strong> Configuration d'un accès distant via un <strong>Bastion</strong> (machine de rebond SSH) pour administrer le serveur sans connexion directe au réseau de management.</p>
-            <div style="background: #2d2d2d; color: #fff; padding: 20px; border-radius: 6px; margin: 20px 0; font-family: 'Consolas', monospace;">
-                Flux SSH :<br>
-                <span style="color:var(--primary)">Poste Local (PuTTY)</span> ➔ <span style="color:#aaa">Bastion (10.192.x.x)</span> ➔ <span style="color:#fff">Serveur DELL (Réseau Privé)</span>
+            <div style="display:flex; gap:20px; margin-top:20px; flex-wrap:wrap;">
+                <div style="flex:1; min-width:300px;">
+                    <img src="img/a27df107384f6855f4a2487881f90117.webp" alt="Serveur Dell R730 installé en baie" class="content-img" style="margin:0;">
+                    <p style="text-align:center; font-size:0.8rem; color:#888; margin-top:5px;"><em>Preuve : Le serveur Dell R730 une fois racké et câblé par mes soins.</em></p>
+                </div>
+                <div style="flex:1;">
+                    <h4>Actions Techniques Réalisées :</h4>
+                    <ul style="list-style-type:circle; margin-left:20px; line-height:1.8;">
+                        <li><strong>Installation Physique :</strong> Rackage dans la baie, câblage réseau uplink (10 Gbps) et alimentation redondée.</li>
+                        <li><strong>OS & Système :</strong> Installation d'<strong>Ubuntu Server 20.04 LTS</strong>. J'ai privilégié un OS Linux natif (pas de virtualisation type ESXi) pour maximiser les performances de Docker.</li>
+                        <li><strong>Sécurisation :</strong> Configuration d'un accès distant via <strong>Bastion SSH</strong> pour administrer le serveur depuis mon poste de travail en toute sécurité.</li>
+                    </ul>
+                </div>
             </div>
+
+            <h3 style="margin-top:30px;">Preuve de fonctionnement</h3>
+            <p>Une fois le serveur opérationnel, j'ai vérifié les ressources disponibles. Cette étape a marqué la fin des limitations matérielles et le début de la phase d'automatisation (Mission 3).</p>
+            
+            <pre style="margin-top:10px;">
+<span class="code-comment"># Connexion au serveur via le Bastion</span>
+<span class="code-variable">youenn@pc-pro</span>:~$ ssh -J bastion.orange.intra youenn@192.168.10.5
+<span class="code-variable">youenn@dell-r730</span>:~$ htop
+<span class="code-comment"># Résultat : 128 Go de RAM disponibles, 32 cœurs CPU.
+# Le serveur est prêt à accueillir les topologies massives.</span></pre>
 
             <div class="reflexive-box">
-                <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
-                <p>Cette mission m'a sorti du cadre purement "logiciel" pour me confronter à la réalité physique du réseau.</p>
-                <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
-                <p>L'environnement datacenter est hostile (bruit, froid, accès restreint). Il a fallu préparer l'intervention minutieusement. La configuration du rebond SSH via PuTTY était une nouveauté technique pour moi.</p>
-                <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
-                <p>J'ai travaillé en binôme avec M. Tan Tran pour l'installation physique (transfert de compétences). Pour l'accès, j'ai configuré des clés SSH et automatisé la connexion au Bastion pour rendre l'administration fluide depuis mon bureau.</p>
-                <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
-                <ul style="margin-left: 20px; font-weight: 600;">
-                    <li>AC22.02 : Mettre en place un accès distant sécurisé (Bastion SSH).</li>
-                    <li>AC21.06 : Travailler en équipe pour développer ses compétences.</li>
-                </ul>
+                <h3><i class="fas fa-check-circle" style="color:#27ae60;"></i> Bilan de l'étape</h3>
+                <p>Cette mission m'a permis de valider des compétences <strong>Système & Hardware</strong> (AC22.02). J'ai compris qu'avant de coder (Software), il faut une infrastructure (Hardware) solide et dimensionnée. Je suis désormais autonome sur mon propre environnement.</p>
             </div>
+
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Youenn Meillarec</h4>
-                    <p style="font-size: 0.9rem; line-height: 1.6; color: #aaa;">
-                        Étudiant en BUT Réseaux & Télécoms et alternant chez Orange Innovation.
-                    </p>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: #ccc;">
-                        <p><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> Rennes (Orange) / Caen (IUT)</p>
-                    </div>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Navigation</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html" class="transition-link"><i class="fas fa-home"></i> Accueil</a></li>
-                        <li><a href="entreprise.html" class="transition-link"><i class="fas fa-building"></i> Entreprise</a></li>
-                        <li><a href="missions.html" class="transition-link"><i class="fas fa-tasks"></i> Missions</a></li>
-                        <li><a href="bilan.html" class="transition-link"><i class="fas fa-chart-line"></i> Bilan</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Me Contacter</h4>
-                    <ul class="footer-links">
-                        <li><a href="mailto:youenn.meilllarec@orange.fr"><i class="fas fa-envelope"></i> youenn.meilllarec@orange.fr</a></li>
-                    </ul>
-                    <div class="social-icons">
-                        <a href="https://www.linkedin.com/in/youenn-meillarec-b3591a294" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/YMEILLL" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="mailto:youenn.meilllarec@orange.fr" class="social-icon" title="Email"><i class="fas fa-paper-plane"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Youenn Meillarec - Portfolio Académique BUT R&T</p>
-            </div>
-        </div>
-    </footer>
-    <script>
-        document.querySelectorAll('.transition-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                let target = this.href;
-                document.body.classList.add('fade-out');
-                setTimeout(() => window.location.href = target, 500);
-            });
-        });
-    </script>
+    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
 </body>
 </html>
