@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Youenn<span>Meillarec</span></div>
+                <div class="logo">Youenn <span>Meillarec</span></div>
                 <ul class="nav-links">
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
@@ -38,7 +38,7 @@
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
                 <div>
                     <h3>Contexte & Objectifs</h3>
-                    <p><strong>Contexte :</strong> EVE-NG montrait ses limites pour les tests à grande échelle (trop lourd, pas d'automatisation CI/CD). [cite_start]Mon poste de travail (16 Go RAM) ne suffisait plus pour faire tourner les simulations réseaux complexes [cite: 265-266].</p>
+                    <p><strong>Contexte :</strong> EVE-NG montrait ses limites pour les tests à grande échelle. Mon poste de travail (16 Go RAM) ne suffisait plus pour faire tourner les simulations réseaux complexes.</p>
                     <p><strong>Objectif :</strong> Migrer vers une solution "Infrastructure as Code" (IaC) utilisant des conteneurs Docker légers pour simuler des architectures complexes sur un serveur dédié.</p>
                 </div>
                 <div class="sidebar-wrapper">
@@ -101,13 +101,10 @@
             <div class="reflexive-box">
                 <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
                 <p>Cette mission a marqué mon passage du statut d'utilisateur d'outils à celui de créateur d'outils d'automatisation. J'ai découvert la puissance du DevOps appliqué au réseau.</p>
-                
                 <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
-                <p>Au début, je me heurtais à des plantages fréquents sur mon PC local (16Go RAM) et à la complexité de gérer des images Docker propriétaires. De plus, la gestion des temps de convergence dans les scripts (le script testait trop tôt avant que le réseau ne soit prêt) a nécessité la mise en place de boucles de vérification (polling).</p>
-
+                <p>Au début, je me heurtais à des plantages fréquents sur mon PC local (16Go RAM). De plus, la complexité de BGP (Route Reflector) et la gestion des temps de convergence dans les scripts ont été des défis.</p>
                 <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
-                <p>J'ai migré vers un serveur dédié (Dell R730) pour lever les verrous matériels. J'ai intégré des namespaces Linux (`nsenter`) pour piloter les conteneurs clients sans avoir besoin d'y installer SSH. J'ai structuré mon travail sur GitLab avec un guide "Kit de démarrage" pour l'équipe.</p>
-
+                <p>J'ai migré vers un serveur dédié (Dell R730). J'ai intégré des namespaces Linux (`nsenter`) pour piloter les conteneurs clients. J'ai structuré mon travail sur GitLab.</p>
                 <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
                 <ul style="margin-left: 20px; font-weight: 600;">
                     <li>AC23.01 : Automatiser l’administration système (Bash/YAML).</li>
@@ -119,7 +116,46 @@
         </div>
     </div>
 
-    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Youenn Meillarec</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6; color: #aaa;">
+                        Étudiant en BUT Réseaux & Télécoms et alternant chez Orange Innovation.
+                    </p>
+                    <div style="margin-top: 15px; font-size: 0.9rem; color: #ccc;">
+                        <p><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> Rennes (Orange) / Caen (IUT)</p>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" class="transition-link"><i class="fas fa-home"></i> Accueil</a></li>
+                        <li><a href="entreprise.html" class="transition-link"><i class="fas fa-building"></i> Entreprise</a></li>
+                        <li><a href="missions.html" class="transition-link"><i class="fas fa-tasks"></i> Missions</a></li>
+                        <li><a href="bilan.html" class="transition-link"><i class="fas fa-chart-line"></i> Bilan</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Me Contacter</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:youenn.meilllarec@orange.fr"><i class="fas fa-envelope"></i> youenn.meilllarec@orange.fr</a></li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/youenn-meillarec-b3591a294" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/YMEILLL" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:youenn.meilllarec@orange.fr" class="social-icon" title="Email"><i class="fas fa-paper-plane"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Youenn Meillarec - Portfolio Académique BUT R&T</p>
+            </div>
+        </div>
+    </footer>
     <script>
         document.querySelectorAll('.transition-link').forEach(link => {
             link.addEventListener('click', function(e) {

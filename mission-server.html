@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Youenn<span>Meillarec</span></div>
+                <div class="logo">Youenn <span>Meillarec</span></div>
                 <ul class="nav-links">
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
@@ -57,13 +57,10 @@
             <div class="reflexive-box">
                 <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
                 <p>Cette mission m'a sorti du cadre purement "logiciel" pour me confronter à la réalité physique du réseau.</p>
-                
                 <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
                 <p>L'environnement datacenter est hostile (bruit, froid, accès restreint). Il a fallu préparer l'intervention minutieusement. La configuration du rebond SSH via PuTTY était une nouveauté technique pour moi.</p>
-
                 <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
                 <p>J'ai travaillé en binôme avec M. Tan Tran pour l'installation physique (transfert de compétences). Pour l'accès, j'ai configuré des clés SSH et automatisé la connexion au Bastion pour rendre l'administration fluide depuis mon bureau.</p>
-
                 <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
                 <ul style="margin-left: 20px; font-weight: 600;">
                     <li>AC22.02 : Mettre en place un accès distant sécurisé (Bastion SSH).</li>
@@ -73,7 +70,46 @@
         </div>
     </div>
 
-    <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Youenn Meillarec</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6; color: #aaa;">
+                        Étudiant en BUT Réseaux & Télécoms et alternant chez Orange Innovation.
+                    </p>
+                    <div style="margin-top: 15px; font-size: 0.9rem; color: #ccc;">
+                        <p><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> Rennes (Orange) / Caen (IUT)</p>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" class="transition-link"><i class="fas fa-home"></i> Accueil</a></li>
+                        <li><a href="entreprise.html" class="transition-link"><i class="fas fa-building"></i> Entreprise</a></li>
+                        <li><a href="missions.html" class="transition-link"><i class="fas fa-tasks"></i> Missions</a></li>
+                        <li><a href="bilan.html" class="transition-link"><i class="fas fa-chart-line"></i> Bilan</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Me Contacter</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:youenn.meilllarec@orange.fr"><i class="fas fa-envelope"></i> youenn.meilllarec@orange.fr</a></li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/youenn-meillarec-b3591a294" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/YMEILLL" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:youenn.meilllarec@orange.fr" class="social-icon" title="Email"><i class="fas fa-paper-plane"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Youenn Meillarec - Portfolio Académique BUT R&T</p>
+            </div>
+        </div>
+    </footer>
     <script>
         document.querySelectorAll('.transition-link').forEach(link => {
             link.addEventListener('click', function(e) {
