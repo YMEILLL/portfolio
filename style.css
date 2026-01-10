@@ -26,7 +26,6 @@ body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    animation: pageFadeIn 0.8s ease-out;
 }
 
 h1, h2, h3, h4, .nav-links a, .btn, .badge, .tool-item span {
@@ -109,7 +108,7 @@ h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 80px; he
 /* 7. HERO SPLIT */
 .hero-split { flex-grow: 1; display: flex; align-items: center; position: relative; background: radial-gradient(circle at 0% 0%, rgba(255, 121, 0, 0.03) 0%, transparent 40%), radial-gradient(circle at 100% 100%, rgba(30, 30, 30, 0.03) 0%, transparent 40%); padding: 4rem 0; }
 .split-container { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: center; }
-.profile-side { text-align: center; }
+.profile-side { text-align: center; margin-top: 40px; }
 .main-photo { width: 300px; height: 380px; object-fit: cover; border-radius: 12px; box-shadow: 20px 20px 0px rgba(30, 30, 30, 0.1); transition: var(--transition); }
 .profile-side:hover .main-photo { transform: scale(1.02); box-shadow: 25px 25px 0px rgba(255, 121, 0, 0.2); }
 .badge { display: inline-block; background: var(--primary); color: white; padding: 10px 25px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; margin-top: -25px; position: relative; box-shadow: 0 10px 20px rgba(255, 121, 0, 0.4); letter-spacing: 1px; text-transform: uppercase; }
@@ -303,3 +302,250 @@ details.accordion > summary::after {
 details.accordion[open] > summary::after {
     transform: translateY(-50%) rotate(90deg);
 }
+
+/* ===== ANIMATIONS ENTRE LES PAGES ===== */
+
+/* Slide in cinématique du bas (plus long et smooth) */
+@keyframes slideUpFast {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide in cinématique du haut (plus long et smooth) */
+@keyframes slideDownFast {
+    from {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide in cinématique de la gauche */
+@keyframes slideLeftFast {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Slide in cinématique de la droite */
+@keyframes slideRightFast {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale cinématique rapide */
+@keyframes scaleInFast {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Scale pour photo (moins de mouvement) */
+@keyframes scaleInFastSubtle {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Menu fade in rapide */
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== APPLICATION DES ANIMATIONS SÉLECTIVES ===== */
+
+/* Contenu principal - plus long et smooth (1.2s) */
+.container.section-padding {
+    animation: slideUpFast 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Cartes principales - légèrement plus lent (0.9s) */
+.card {
+    animation: scaleInFast 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Accordions - plus lent (0.8s) */
+details.accordion {
+    animation: slideUpFast 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Images principales - plus lent (0.9s) */
+.mission-detail img {
+    animation: slideUpFast 0.9s ease-out 0.2s both;
+}
+
+/* Grilles - plus lent (0.9s) */
+.grid-3, .grid-4 {
+    animation: slideUpFast 0.9s ease-out;
+}
+
+/* Liens au survol */
+a.transition-link {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+a.transition-link:hover {
+    transform: translateY(-2px);
+    color: var(--primary);
+}
+
+/* Boutons */
+.btn {
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 121, 0, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Tables - plus lent (0.9s) */
+table {
+    animation: slideUpFast 0.9s ease-out 0.1s both;
+}
+
+tr {
+    transition: all 0.2s ease;
+}
+
+tr:hover {
+    background: rgba(255, 121, 0, 0.05);
+    transform: translateX(4px);
+}
+
+/* Badges */
+.badge {
+    transition: all 0.25s ease;
+}
+
+.badge:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Boîtes d'information subtiles - plus lent (0.8s) */
+[style*="background:#e3f2fd"], 
+[style*="background:#e8f4fd"],
+[style*="background:#fff3cd"],
+[style*="background:#fef5e7"] {
+    animation: slideUpFast 0.8s ease-out;
+}
+
+/* Dropdowns */
+.dropdown {
+    animation: menuFadeIn 0.25s ease-out !important;
+}
+
+/* Sidebar wrapper - plus lent (1s) */
+.sidebar-wrapper {
+    animation: slideRightFast 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ===== ANIMATIONS PAGE D'ACCUEIL ===== */
+
+/* Section hero */
+.hero-split {
+    animation: slideUpFast 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Profile side */
+.profile-side {
+    animation: slideLeftFast 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Photo wrapper */
+.photo-wrapper {
+    animation: scaleInFastSubtle 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Nav side */
+.nav-side {
+    animation: slideRightFast 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Logos partenaires */
+.partners-logos {
+    animation: slideDownFast 0.9s ease-out;
+}
+
+/* Cartes de navigation */
+.nav-card {
+    animation: scaleInFast 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-card:nth-child(1) { animation-delay: 0s; }
+.nav-card:nth-child(2) { animation-delay: 0.1s; }
+.nav-card:nth-child(3) { animation-delay: 0.2s; }
+
+/* Fade out pour transition */
+body.fade-out {
+    animation: fadeOutPage 0.5s ease-out forwards;
+}
+
+@keyframes fadeOutPage {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
