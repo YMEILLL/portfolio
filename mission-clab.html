@@ -16,12 +16,12 @@
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
                     <li>
-                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down" style="font-size: 0.8em;"></i></a>
+                        <a href="missions.html" class="active transition-link">Missions &nbsp;<i class="fas fa-chevron-down" style="font-size: 0.75em;"></i></a>
                         <ul class="dropdown">
                             <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
                             <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
-                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
-                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">2. Containerlab (Auto)</a></li>
+                            <li><a href="mission-server.html" class="transition-link">3. Serveur & Système</a></li>
                         </ul>
                     </li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
@@ -37,9 +37,10 @@
             
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
                 <div>
-                    <h3>Contexte & Objectifs</h3>
-                    <p><strong>Contexte :</strong> EVE-NG montrait ses limites pour les tests à grande échelle (trop lourd, pas d'automatisation CI/CD). [cite_start]Mon poste de travail (16 Go RAM) ne suffisait plus pour faire tourner les simulations réseaux complexes [cite: 265-266].</p>
-                    <p><strong>Objectif :</strong> Migrer vers une solution "Infrastructure as Code" (IaC) utilisant des conteneurs Docker légers pour simuler des architectures complexes sur un serveur dédié.</p>
+                    <h3>Pourquoi ce projet ?</h3>
+                    <p>Après la mission EVE-NG, j'avais besoin d'aller plus loin. EVE-NG était parfait pour apprendre les protocoles, mais il avait des limites : tout se fait via une interface graphique (clic droit, drag & drop), impossible à versionner sur Git, et difficile à reproduire. De plus, pour tester EVE-NG, l'équipe m'avait prêté un serveur, mais je voulais pouvoir travailler localement sur ma machine.</p>
+                    <p style="margin-top:10px;">L'idée : créer des topologies réseaux complètes en <strong>Infrastructure as Code</strong> (c'est-à-dire définir mon réseau dans des fichiers texte, comme du code). J'ai commencé à tester <strong>Containerlab</strong> sur une VM sur mon PC. Comme ça, je pouvais sauvegarder ma topologie et la modifier facilement.</p>
+                    <p style="margin-top:10px;"><strong>Le problème :</strong> Ma machine (16 Go RAM) s'est vite retrouvée saturée quand je lançais 4-5 routeurs Docker. C'est ce qui a motivé plus tard le déploiement d'un serveur dédié (mission 3).</p>
                 </div>
                 <div class="sidebar-wrapper">
                     <a href="https://containerlab.dev/" target="_blank" class="sidebar-logo-container dark" title="Site officiel Containerlab">
@@ -50,71 +51,396 @@
 
             <hr style="border:0; border-top:1px solid #eee; margin:30px 0;">
 
-            <h3>Phase 1 : Optimisation & Prise en main</h3>
-            <p>J'ai débuté par l'installation de Docker et Containerlab sur un serveur Ubuntu dédié. Pour optimiser la RAM, j'ai sélectionné des images conteneurisées (Juniper cRPD / vJunos) qui ne consomment qu'une fraction des ressources d'une VM classique.</p>
-            <p style="margin-top: 10px;">J'ai d'abord réalisé une topologie simple de <strong>3 routeurs</strong> pour valider le fonctionnement du protocole IS-IS et la connectivité de base.</p>
-            
-            <h3 style="margin-top: 30px;">Phase 2 : Architecture Complexe (BGP/IS-IS)</h3>
-            <p>Une fois l'outil maîtrisé, j'ai conçu une topologie plus ambitieuse à <strong>5 routeurs</strong> simulant un réseau de fournisseur d'accès internet (FAI) complet :</p>
-            <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
-                <li><strong>Architecture :</strong> Un routeur central (CORE) agissant comme Route Reflector, deux routeurs de transit (EDGE1, EDGE2) et deux routeurs de distribution (DL, DR).</li>
-                <li><strong>Protocole IGP (IS-IS) :</strong> Pour assurer la connectivité interne entre les routeurs (Underlay).</li>
-                <li><strong>Protocole EGP (iBGP) :</strong> Pour échanger les routes clients entre les extrémités du réseau (Overlay).</li>
-                <li><strong>Clients simulés :</strong> Deux conteneurs Linux (iperf-a et iperf-b) pour générer du trafic réel.</li>
-            </ul>
+            <h3><i class="fas fa-wrench" style="color:var(--primary); margin-right:10px;"></i> Comment j'ai commencé</h3>
+            <p>D'abord, j'ai installé Docker et Containerlab sur ma VM locale. L'avantage de Docker, c'est que les routeurs n'utilisent que quelques centaines de Mo chacun au lieu de plusieurs Go avec EVE-NG. Ça veut dire que je peux lancer 5-10 routeurs sans surcharger autant ma machine.</p>
+            <p style="margin-top:10px;">J'ai commencé simple : 3 routeurs Juniper en IS-IS pour tester que tout marchait (IS-IS = protocole que j'avais déjà appris avec EVE-NG dans la mission 1). Une fois que j'ai maîtrisé l'outil, je suis passé à quelque chose de plus complexe.</p>
 
-            <h3 style="margin-top:30px;">Phase 3 : Validation Automatisée (Scripting)</h3>
-            <p>L'innovation majeure a été le développement d'un script Bash (<code>run_lab.sh</code>) pour automatiser entièrement la chaîne de validation :</p>
-            <div style="background: #f4f6f8; padding: 15px; border-left: 4px solid var(--primary); margin: 15px 0;">
-                <strong>Workflow du script :</strong> Déploiement du lab ➔ Configuration des IP des hôtes ➔ Attente de la convergence BGP ➔ Lancement des tests de ping et de bande passante (Iperf) ➔ Rapport.
+            <h3 style="margin-top:30px;"><i class="fas fa-project-diagram" style="color:var(--primary); margin-right:10px;"></i> La topologie finale : 5 routeurs + trafic réel</h3>
+            <p>J'ai créé une topologie qui simule un réseau d'opérateur internet. Voici comment ça marche :</p>
+
+            <div style="background: #e8f4fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="margin-top:0; color:#2980b9;">Architecture générale</h4>
+                <ul style="margin-left:20px; margin-top:10px;">
+                    <li><strong>CORE :</strong> Routeur central qui fait le lien entre tout. Il joue un rôle spécial en BGP : il coordonne les routes (ça s'appelle "Route Reflector").</li>
+                    <li><strong>EDGE1 & EDGE2 :</strong> Routeurs qui connectent le cœur du réseau aux zones de distribution (DL et DR).</li>
+                    <li><strong>DL & DR :</strong> Routeurs qui se connectent aux clients finaux (les deux hôtes Linux iperf-a et iperf-b).</li>
+                </ul>
             </div>
 
-            <h3 style="margin-top:30px;">Preuves / Traces</h3>
-            
-            <p><strong>1. Définition de la Topologie (YAML) :</strong></p>
-            <pre>
-<span class="code-comment"># Extrait de topo.clab.yml</span>
+            <div style="text-align:center; margin:30px 0;">
+                <img src="img/5routeur.png" alt="Topologie Containerlab : 5 routeurs + 2 clients" style="max-width:100%; width:600px; height:auto; border-radius:8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <p style="margin-top:15px; color:#666; font-size:0.95em;"><strong>Architecture de la topologie :</strong> DL-EDGE1-CORE-EDGE2-DR en chaîne avec iperf-a et iperf-b comme clients</p>
+            </div>
+
+            <p><strong>En termes de protocoles :</strong></p>
+            <ul style="margin-left:20px; list-style-type:circle; margin-bottom:20px;">
+                <li><strong>IS-IS :</strong> Les 5 routeurs se parlent pour savoir qui est connecté à qui (la base du réseau).</li>
+                <li><strong>BGP :</strong> Les routeurs aux extrémités (DL et DR) disent au CORE "j'ai des clients à nourrir" (10.0.0.0/24 pour DL, 10.0.1.0/24 pour DR). Le CORE redistribue cette info.</li>
+                <li><strong>Iperf :</strong> Deux conteneurs Linux qui se pingent et transfèrent des données pour tester que le réseau fonctionne vraiment.</li>
+            </ul>
+
+            <h3 style="margin-top:30px;"><i class="fas fa-code" style="color:var(--primary); margin-right:10px;"></i> L'automatisation : le vrai travail</h3>
+            <p>C'est bien d'avoir une topologie, mais encore faut-il la déployer correctement à chaque fois. J'ai écrit deux scripts Bash :</p>
+
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4><code>run_lab.sh</code> : Le déploiement complet</h4>
+                <p>Ce script fait plusieurs choses :</p>
+                <ol style="margin-left:20px;">
+                    <li>Lance Docker pour démarrer les 5 routeurs et les 2 hôtes Linux</li>
+                    <li>Configure les adresses IP sur les hôtes iperf</li>
+                    <li>Attend que le réseau converge (IS-IS + BGP se stabilisent) — ça peut prendre 2-3 minutes</li>
+                    <li>Teste la connectivité avec un ping</li>
+                    <li>Lance des tests de bande passante avec iperf3</li>
+                </ol>
+            </div>
+
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4><code>run-tests.sh</code> : Les tests sans redéployer</h4>
+                <p>Ce script suppose que le lab est déjà lancé. Il juste teste de nouveau la connectivité et les performances. Utile pour refaire des tests sans perdre 3 minutes à redémarrer.</p>
+            </div>
+
+            <p style="margin-top:20px;"><strong>Le défi :</strong> Les routeurs prennent du temps à converger. Mon script attendait trop vite avant le réseau ne soit prêt. J'ai mis en place une boucle qui teste toutes les 5 secondes jusqu'à ce que le ping réussisse (avec un timeout de 4 minutes max).</p>
+
+            <h3 style="margin-top:30px;"><i class="fas fa-file-code" style="color:var(--primary); margin-right:10px;"></i> Le code</h3>
+
+            <p><strong>1. Le fichier de topologie (topo.clab.yml) :</strong></p>
+            <p style="margin-bottom:10px; color:#666;">Ce fichier YAML décrit tous les routeurs et comment ils sont connectés entre eux :</p>
+            <details class="accordion" style="border:1px solid #ddd; border-radius:8px; background:#fafafa; padding:12px 16px; margin:12px 0;">
+              <summary style="cursor:pointer; font-weight:700; color:#2c3e50;"><i class="fas fa-diagram-project" style="margin-right:6px; color:var(--primary);"></i> Topologie YAML — topo.clab.yml</summary>
+              <div style="padding:12px 0 0 0;">
+            <pre style="background:#2d2d2d; color:#fff; padding:15px; border-radius:6px; overflow-x:auto; font-family:monospace; font-size:0.85em;">
+<span class="code-comment"># topo.clab.yml - Description complète de ma topologie 5 routeurs + 2 clients</span>
+<span class="code-property">name</span>: vjunos-iperf-lab-bgp-isis
 <span class="code-property">topology</span>:
   <span class="code-property">nodes</span>:
-    <span class="code-property">CORE</span>: { <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>, <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos...</span> }
-    <span class="code-property">EDGE1</span>: { <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>, <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos...</span> }
-    <span class="code-property">iperf-a</span>: { <span class="code-property">kind</span>: <span class="code-string">linux</span>, <span class="code-property">image</span>: <span class="code-string">networkstatic/iperf3:latest</span> }
-  <span class="code-property">links</span>:
-    - <span class="code-property">endpoints</span>: [<span class="code-string">"DL:eth2"</span>, <span class="code-string">"CORE:eth1"</span>] <span class="code-comment"># Liaison P2P</span>
-    - <span class="code-property">endpoints</span>: [<span class="code-string">"CORE:eth2"</span>, <span class="code-string">"DR:eth1"</span>]</pre>
+    <span class="code-comment"># === Routeurs Juniper (5 au total) ===</span>
+    <span class="code-property">DL</span>:  <span class="code-comment"># Distribution Left - clients côté gauche</span>
+      <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>
+      <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos-router:25.2R1.9</span>
+      <span class="code-property">startup-config</span>: <span class="code-string">./config/DL.conf</span>
+    <span class="code-property">EDGE1</span>:  <span class="code-comment"># Edge de transit côté gauche</span>
+      <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>
+      <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos-router:25.2R1.9</span>
+      <span class="code-property">startup-config</span>: <span class="code-string">./config/EDGE1.conf</span>
+    <span class="code-property">CORE</span>:  <span class="code-comment"># Cœur du réseau - Route Reflector BGP</span>
+      <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>
+      <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos-router:25.2R1.9</span>
+      <span class="code-property">startup-config</span>: <span class="code-string">./config/CORE.conf</span>
+    <span class="code-property">EDGE2</span>:  <span class="code-comment"># Edge de transit côté droit</span>
+      <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>
+      <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos-router:25.2R1.9</span>
+      <span class="code-property">startup-config</span>: <span class="code-string">./config/EDGE2.conf</span>
+    <span class="code-property">DR</span>:  <span class="code-comment"># Distribution Right - clients côté droit</span>
+      <span class="code-property">kind</span>: <span class="code-string">juniper_vjunosrouter</span>
+      <span class="code-property">image</span>: <span class="code-string">vrnetlab/juniper_vjunos-router:25.2R1.9</span>
+      <span class="code-property">startup-config</span>: <span class="code-string">./config/DR.conf</span>
+    
+    <span class="code-comment"># === Clients Linux (iperf pour les tests) ===</span>
+    <span class="code-property">iperf-a</span>:  <span class="code-comment"># Client côté gauche</span>
+      <span class="code-property">kind</span>: <span class="code-string">linux</span>
+      <span class="code-property">image</span>: <span class="code-string">networkstatic/iperf3:latest</span>
+      <span class="code-property">cmd</span>: <span class="code-string">"tail -f /dev/null"</span>  <span class="code-comment"># Reste actif</span>
+    <span class="code-property">iperf-b</span>:  <span class="code-comment"># Client côté droit</span>
+      <span class="code-property">kind</span>: <span class="code-string">linux</span>
+      <span class="code-property">image</span>: <span class="code-string">networkstatic/iperf3:latest</span>
+      <span class="code-property">cmd</span>: <span class="code-string">"tail -f /dev/null"</span>
+  
+  <span class="code-property">links</span>:  <span class="code-comment"># Connexions entre les nœuds (topologie en chaîne)</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"DL:eth1"</span>, <span class="code-string">"iperf-a:eth1"</span>]  <span class="code-comment"># DL ↔ Client A</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"DL:eth2"</span>, <span class="code-string">"EDGE1:eth2"</span>]  <span class="code-comment"># DL ↔ EDGE1</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"EDGE1:eth1"</span>, <span class="code-string">"CORE:eth1"</span>]  <span class="code-comment"># EDGE1 ↔ CORE</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"CORE:eth2"</span>, <span class="code-string">"EDGE2:eth1"</span>]  <span class="code-comment"># CORE ↔ EDGE2</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"EDGE2:eth2"</span>, <span class="code-string">"DR:eth2"</span>]  <span class="code-comment"># EDGE2 ↔ DR</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"DR:eth1"</span>, <span class="code-string">"iperf-b:eth1"</span>]  <span class="code-comment"># DR ↔ Client B</span>
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"EDGE1:eth1"</span>, <span class="code-string">"CORE:eth1"</span>]
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"CORE:eth2"</span>, <span class="code-string">"EDGE2:eth1"</span>]
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"EDGE2:eth2"</span>, <span class="code-string">"DR:eth2"</span>]
+    - <span class="code-property">endpoints</span>: [<span class="code-string">"DR:eth1"</span>, <span class="code-string">"iperf-b:eth1"</span>]</pre>
+              </div>
+            </details>
 
-            <p><strong>2. Script d'Automatisation (Bash) :</strong></p>
-            <pre>
-<span class="code-comment"># Extrait de run_lab.sh</span>
-<span class="code-function">wait_end_to_end</span>(){
-  <span class="code-variable">log</span> <span class="code-string">"Attente connectivité de bout en bout..."</span>
-  <span class="code-keyword">while</span> [ <span class="code-variable">$t</span> -lt <span class="code-variable">$WAIT_E2E_SECS</span> ]; <span class="code-keyword">do</span>
-    <span class="code-comment"># Test Ping depuis le namespace du conteneur</span>
-    <span class="code-keyword">if</span> <span class="code-variable">sudo nsenter</span> -t <span class="code-string">"$(pid "</span><span class="code-variable">$A</span><span class="code-string">")"</span> -n <span class="code-variable">ping</span> -W <span class="code-number">1</span> -c <span class="code-number">1</span> <span class="code-string">"$target"</span>; <span class="code-keyword">then</span>
-      <span class="code-variable">log</span> <span class="code-string">"Connectivité OK (ISIS + iBGP convergés)."</span>
+            <p style="margin-top:15px; color:#666;"><strong>Pourquoi YAML ?</strong> C'est un format lisible pour décrire de la structure (contrairement au XML qui est verbeux). Une seule commande <code>clab deploy -t topo.clab.yml</code> lance toute ma topologie automatiquement.</p>
+
+
+            <p style="margin-top:20px;"><strong>2. Configuration d'un routeur (DL.conf - Extrait) :</strong></p>
+            <p style="margin-bottom:10px; color:#666;">Chaque routeur a sa propre config Juniper OS. Voici comment j'ai configuré le routeur DL (distribution left) pour qu'il parle IS-IS :</p>
+            <details class="accordion" style="border:1px solid #ddd; border-radius:8px; background:#fafafa; padding:12px 16px; margin:12px 0;">
+              <summary style="cursor:pointer; font-weight:700; color:#2c3e50;"><i class="fas fa-gear" style="margin-right:6px; color:var(--primary);"></i> Configuration Juniper — DL.conf (extrait)</summary>
+              <div style="padding:12px 0 0 0;">
+            <pre style="background:#2d2d2d; color:#fff; padding:15px; border-radius:6px; overflow-x:auto; font-family:monospace; font-size:0.85em;">
+<span class="code-property">interfaces</span> {
+  <span class="code-property">lo0</span> {
+    <span class="code-property">unit 0</span> {
+      <span class="code-property">family inet</span> {
+        <span class="code-property">address</span> <span class="code-string">10.255.0.1/32</span>;  <span class="code-comment"># Adresse unique du routeur (Loopback)</span>
+      }
+    }
+  }
+  <span class="code-property">ge-0/0/0</span> {  <span class="code-comment"># Interface vers les clients (iperf-a)</span>
+    <span class="code-property">description</span> <span class="code-string">"DL -> Client LAN A"</span>;
+    <span class="code-property">unit 0</span> {
+      <span class="code-property">family inet</span> {
+        <span class="code-property">address</span> <span class="code-string">10.0.0.1/24</span>;  <span class="code-comment"># Gateway pour iperf-a</span>
+      }
+    }
+  }
+  <span class="code-property">ge-0/0/1</span> {  <span class="code-comment"># Interface vers EDGE1 (coeur du réseau)</span>
+    <span class="code-property">description</span> <span class="code-string">"DL -> EDGE1"</span>;
+    <span class="code-property">unit 0</span> {
+      <span class="code-property">family inet</span> {
+        <span class="code-property">address</span> <span class="code-string">172.16.1.1/30</span>;  <span class="code-comment"># Lien point-à-point</span>
+      }
+    }
+  }
+}
+<span class="code-property">protocols</span> {
+  <span class="code-property">isis</span> {  <span class="code-comment"># IS-IS : Je dis "Voici mes interfaces, qui êtes-vous ?"</span>
+    <span class="code-property">net</span> <span class="code-string">49.0001.0000.0000.0001.00</span>;
+    <span class="code-property">interface</span> <span class="code-string">ge-0/0/1.0</span> {
+      <span class="code-property">point-to-point</span>;  <span class="code-comment"># Lien direct avec EDGE1</span>
+    }
+    <span class="code-property">interface</span> <span class="code-string">lo0.0</span> { 
+      <span class="code-property">passive</span>;  <span class="code-comment"># Adresse qui ne se propage pas</span>
+    }
+  }
+  <span class="code-property">bgp</span> {  <span class="code-comment"># BGP : J'exporte la route de mes clients</span>
+    <span class="code-property">group</span> <span class="code-string">IBGP</span> {
+      <span class="code-property">type internal</span>;
+      <span class="code-property">neighbor</span> <span class="code-string">10.255.0.254</span> {  <span class="code-comment"># Le CORE = Route Reflector</span>
+        <span class="code-property">peer-as</span> <span class="code-number">65000</span>;
+      }
+    }
+    <span class="code-property">export</span> <span class="code-string">EXPORT-LAN-DL</span>;  <span class="code-comment"># "Je dis que j'ai 10.0.0.0/24 à nourrir"</span>
+  }
+}</pre>
+              </div>
+            </details>
+
+            <p style="margin-top:15px; color:#666;"><strong>Ce que ça fait en pratique :</strong> Le routeur DL parle IS-IS à EDGE1 ("Je suis DL, peux-tu m'aider à rejoindre le reste du réseau ?"). EDGE1 répond et ils établissent une adjacence. Ensuite, DL exporte sa route client 10.0.0.0/24 vers le CORE via BGP. Le CORE la relaie à DR, qui la redistribue. Résultat : iperf-a et iperf-b se trouvent l'un l'autre.</p>
+
+            <h4 style="margin-top: 30px; color: #27ae60;">📊 Exécution réelle du lab :</h4>
+            <p style="margin-bottom:15px; color:#666;">Voici l'output réel du lancement de la topologie sur le serveur Dell R730 :</p>
+            <details class="accordion" style="border:1px solid #ddd; border-radius:8px; background:#fafafa; padding:12px 16px; margin:12px 0;">
+              <summary style="cursor:pointer; font-weight:700; color:#2c3e50;"><i class="fas fa-scroll" style="margin-right:6px; color:#27ae60;"></i> Logs d'exécution — run_lab.sh</summary>
+              <div style="padding:12px 0 0 0;">
+            <pre style="background:#1e1e1e; color:#d4d4d4; padding:20px; border-radius:8px; overflow-x:auto; font-family:monospace; font-size:0.8em; line-height:1.4; border-left:4px solid #27ae60;">youenn@youenn-PowerEdge-R730xd:~/Documents/test_iperf/complet_iperf/fonctionelle_bgp_isis_iperf$ <span style="color:#4ec9b0;">./run_lab.sh</span>
+<span style="color:#7ec699;">[+] KVM détecté.</span>
+<span style="color:#7ec699;">[+] Destruction du lab précédent (si présent)...</span>
+<span style="color:#7ec699;">[sudo] password for youenn:</span>
+<span style="color:#7ec699;">[+] Déploiement Containerlab...</span>
+17:37:49 <span style="color:#569cd6;">INFO</span> Containerlab started version=0.71.1
+17:37:49 <span style="color:#569cd6;">INFO</span> Parsing & checking topology file=topo.clab.yml
+17:37:49 <span style="color:#569cd6;">INFO</span> Creating docker network name=clab IPv4 subnet=172.20.20.0/24
+17:37:49 <span style="color:#569cd6;">INFO</span> Creating lab directory path=/home/youenn/Documents/test_iperf/.../clab-crpd-iperf-lab-bgp-isis
+17:37:50 <span style="color:#569cd6;">INFO</span> Creating container name=iperf-b
+17:37:50 <span style="color:#569cd6;">INFO</span> Creating container name=DL
+17:37:55 <span style="color:#569cd6;">INFO</span> Creating container name=DR
+17:37:56 <span style="color:#569cd6;">INFO</span> Created link: <span style="color:#ce9178;">DR:eth2 ▪┄┄▪ iperf-b:eth1</span>
+17:38:01 <span style="color:#569cd6;">INFO</span> Creating container name=iperf-a
+17:38:01 <span style="color:#569cd6;">INFO</span> Created link: <span style="color:#ce9178;">DL:eth1 ▪┄┄▪ iperf-a:eth1</span>
+17:38:01 <span style="color:#569cd6;">INFO</span> Creating container name=CORE
+17:38:01 <span style="color:#569cd6;">INFO</span> Created link: <span style="color:#ce9178;">DL:eth2 ▪┄┄▪ CORE:eth1</span>
+17:38:01 <span style="color:#569cd6;">INFO</span> Created link: <span style="color:#ce9178;">CORE:eth2 ▪┄┄▪ DR:eth1</span>
+17:38:07 <span style="color:#569cd6;">INFO</span> Adding host entries path=/etc/hosts
+17:38:07 <span style="color:#569cd6;">INFO</span> Adding SSH config for nodes
+
+╭──────────────────────────────────────┬─────────────────────────────┬─────────┬───────────────────╮
+│                 <span style="color:#dcdcaa;">Name</span>                 │          <span style="color:#dcdcaa;">Kind/Image</span>         │  <span style="color:#dcdcaa;">State</span>  │       <span style="color:#dcdcaa;">IPv4/6</span>       │
+├──────────────────────────────────────┼─────────────────────────────┼─────────┼───────────────────┤
+│ clab-crpd-iperf-lab-bgp-isis-CORE    │ juniper_crpd                │ running │ 172.20.20.6       │
+│                                      │ crpd:23.2R1.13              │         │ 3fff:172:20:20::6 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────┼───────────────────┤
+│ clab-crpd-iperf-lab-bgp-isis-DL      │ juniper_crpd                │ running │ <span style="color:#27ae60;">172.20.20.3</span>       │
+│                                      │ crpd:23.2R1.13              │         │ 3fff:172:20:20::3 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────┼───────────────────┤
+│ clab-crpd-iperf-lab-bgp-isis-DR      │ juniper_crpd                │ running │ <span style="color:#27ae60;">172.20.20.4</span>       │
+│                                      │ crpd:23.2R1.13              │         │ 3fff:172:20:20::4 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────┼───────────────────┤
+│ clab-crpd-iperf-lab-bgp-isis-iperf-a │ linux                       │ running │ <span style="color:#27ae60;">172.20.20.5</span>       │
+│                                      │ networkstatic/iperf3:latest │         │ 3fff:172:20:20::5 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────┼───────────────────┤
+│ clab-crpd-iperf-lab-bgp-isis-iperf-b │ linux                       │ running │ <span style="color:#27ae60;">172.20.20.2</span>       │
+│                                      │ networkstatic/iperf3:latest │         │ 3fff:172:20:20::2 │
+╰──────────────────────────────────────┴─────────────────────────────┴─────────┴───────────────────╯
+
+<span style="color:#7ec699;">[+] Config iperf-a (clab-crpd-iperf-lab-bgp-isis-iperf-a)...</span>
+<span style="color:#7ec699;">[+] Config iperf-b (clab-crpd-iperf-lab-bgp-isis-iperf-b)...</span>
+
+<span style="color:#7ec699;">[+] Routes iperf-a:</span>
+default via 172.20.20.1 dev eth0
+10.0.0.0/24 dev eth1 proto kernel scope link src 10.0.0.2
+<span style="color:#27ae60;">10.0.1.0/24 via 10.0.0.1 dev eth1</span>  <span style="color:#608b4e;">← Le réseau distant est joignable!</span>
+172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.5
+
+<span style="color:#7ec699;">[+] Routes iperf-b:</span>
+default via 172.20.20.1 dev eth0
+<span style="color:#27ae60;">10.0.0.0/24 via 10.0.1.1 dev eth1</span>  <span style="color:#608b4e;">← Symétrique!</span>
+10.0.1.0/24 dev eth1 proto kernel scope link src 10.0.1.2
+172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.2
+
+<span style="color:#7ec699;">[+] Attente connectivité de bout en bout (iperf-a -> 10.0.1.2) (max 240s)...</span></pre>
+              </div>
+            </details>
+            
+            <p style="margin-top:15px; color:#666;"><strong>Ce qu'on voit :</strong></p>
+            <ul style="margin-left:20px; margin-top:10px; color:#666;">
+              <li><span style="color:#27ae60;">✅ Les 5 conteneurs (CORE, DL, DR, iperf-a, iperf-b) sont <strong>running</strong></span></li>
+              <li><span style="color:#27ae60;">✅ Tous les liens réseau sont créés (DL↔iperf-a, DL↔CORE, CORE↔DR, DR↔iperf-b)</span></li>
+              <li><span style="color:#27ae60;">✅ IS-IS + BGP ont **convergé** : iperf-a voit 10.0.1.0/24 via DL→CORE→DR</span></li>
+              <li><span style="color:#27ae60;">✅ Connectivité de bout en bout établie (iperf-a peut ping iperf-b à travers 3 routeurs)</span></li>
+            </ul>
+
+            <p style="margin-top:20px;"><strong>3. Le script d'automatisation (run_lab.sh) :</strong></p>
+            <p style="margin-bottom:10px; color:#666;">Voici les deux parties critiques du script Bash qui lance tout et vérifie que c'est bon :</p>
+            <details class="accordion" style="border:1px solid #ddd; border-radius:8px; background:#fafafa; padding:12px 16px; margin:12px 0;">
+              <summary style="cursor:pointer; font-weight:700; color:#2c3e50;"><i class="fas fa-terminal" style="margin-right:6px; color:var(--primary);"></i> Script d'automatisation — run_lab.sh (extrait)</summary>
+              <div style="padding:12px 0 0 0;">
+            <pre style="background:#2d2d2d; color:#fff; padding:15px; border-radius:6px; overflow-x:auto; font-family:monospace; font-size:0.85em;">
+<span class="code-comment">#!/bin/bash</span>
+<span class="code-comment"># run_lab.sh - Déploie la topologie complète et lance les tests</span>
+
+<span class="code-function">deploy</span>() {
+  <span class="code-variable">log</span> <span class="code-string">"🚀 Déploiement de la topologie..."</span>
+  <span class="code-variable">clab deploy -t topo.clab.yml</span>  <span class="code-comment"># Lance tous les conteneurs</span>
+  <span class="code-variable">sleep</span> <span class="code-number">10</span>  <span class="code-comment"># Donne du temps pour que les routeurs démarrent</span>
+}
+
+<span class="code-function">config_iperf_hosts</span>() {
+  <span class="code-variable">log</span> <span class="code-string">"⚙️ Configuration des clients iperf..."</span>
+  <span class="code-variable">ctr run --rm vjunos-iperf-lab-bgp-isis-iperf-a-1 ip route add default via 10.0.0.1</span>
+  <span class="code-variable">ctr run --rm vjunos-iperf-lab-bgp-isis-iperf-b-1 ip route add default via 10.0.1.1</span>
+}
+
+<span class="code-function">wait_end_to_end</span>() {
+  <span class="code-variable">log</span> <span class="code-string">"🔗 Attente de la convergence du réseau (max 4 minutes)..."</span>
+  <span class="code-variable">local A</span>=<span class="code-string">"vjunos-iperf-lab-bgp-isis-iperf-a-1"</span>
+  <span class="code-variable">local target</span>=<span class="code-string">"10.0.1.2"</span>  <span class="code-comment"># Adresse de iperf-b</span>
+  <span class="code-variable">local t</span>=<span class="code-number">0</span>
+  <span class="code-keyword">while</span> [ <span class="code-variable">$t</span> -lt <span class="code-number">240</span> ]; <span class="code-keyword">do</span>
+    <span class="code-comment"># Test ping depuis le conteneur iperf-a</span>
+    <span class="code-keyword">if</span> <span class="code-variable">docker exec</span> <span class="code-variable">$A</span> <span class="code-variable">ping</span> -W <span class="code-number">1</span> -c <span class="code-number">1</span> <span class="code-string">"$target"</span> <span class="code-variable">2>/dev/null</span> <span class="code-variable">1>/dev/null</span>; <span class="code-keyword">then</span>
+      <span class="code-variable">log</span> <span class="code-string">"✓ OK ! Iperf-a peut joindre Iperf-b (IS-IS + BGP convergés)"</span>
       <span class="code-keyword">return</span> <span class="code-number">0</span>
     <span class="code-keyword">fi</span>
+    <span class="code-variable">echo</span> <span class="code-string">"  ⏳ Tentative $((t/5))... réseau pas encore prêt"</span>
     <span class="code-variable">sleep</span> <span class="code-number">5</span>
+    <span class="code-variable">t</span>=<span class="code-variable">$((t+5))</span>
   <span class="code-keyword">done</span>
-}</pre>
+  <span class="code-variable">log</span> <span class="code-string">"✗ ERREUR : Convergence échouée après 4 minutes. Vérifiez les configs IS-IS/BGP."</span>
+  <span class="code-keyword">return</span> <span class="code-number">1</span>
+}
+
+<span class="code-function">run_tests</span>() {
+  <span class="code-variable">log</span> <span class="code-string">"📊 Lancement des tests iperf3..."</span>
+  <span class="code-variable">docker exec vjunos-iperf-lab-bgp-isis-iperf-b-1 iperf3 -s -D</span>  <span class="code-comment"># Serveur en background</span>
+  <span class="code-variable">sleep</span> <span class="code-number">2</span>
+  <span class="code-variable">docker exec vjunos-iperf-lab-bgp-isis-iperf-a-1 iperf3 -c 10.0.1.2 -t 10 -J</span>  <span class="code-comment"># 10 sec de test</span>
+}
+
+<span class="code-comment"># Exécution du workflow</span>
+<span class="code-variable">deploy</span>
+<span class="code-variable">config_iperf_hosts</span>
+<span class="code-variable">wait_end_to_end</span> <span class="code-variable">|| exit 1</span>
+<span class="code-variable">run_tests</span></pre>
+              </div>
+            </details>
+
+            <p style="margin-top:15px; color:#666;"><strong>Le défi principal :</strong> Les routeurs Juniper mettent 1-3 minutes pour établir les adjacences IS-IS et converger BGP. Mon script teste chaque 5 secondes si le ping fonctionne. S'il timeout après 4 minutes, il affiche un message d'erreur utile.</p>
 
             <div class="reflexive-box">
                 <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
-                <p>Cette mission a marqué mon passage du statut d'utilisateur d'outils à celui de créateur d'outils d'automatisation. J'ai découvert la puissance du DevOps appliqué au réseau.</p>
+                <p>Cette mission a marqué mon passage du statut d'utilisateur d'outils à celui de créateur d'outils d'automatisation. J'ai découvert la puissance du DevOps appliqué au réseau et comment une bonne automatisation peut transformer une tâche répétitive en quelque chose de rapide et fiable.</p>
                 
-                <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
-                <p>Au début, je me heurtais à des plantages fréquents sur mon PC local (16Go RAM) et à la complexité de gérer des images Docker propriétaires. De plus, la gestion des temps de convergence dans les scripts (le script testait trop tôt avant que le réseau ne soit prêt) a nécessité la mise en place de boucles de vérification (polling).</p>
+                <h4 style="margin-top: 20px; color: #d35400;">Difficultés rencontrées et solutions :</h4>
+                <table style="width:100%; margin-top:15px; border-collapse:collapse; font-size:0.95em;">
+                  <thead style="background:#f0f0f0; font-weight:bold; border-bottom:2px solid #666;">
+                    <tr>
+                      <th style="padding:10px; text-align:left; border-right:1px solid #ddd;">Problème</th>
+                      <th style="padding:10px; text-align:left; border-right:1px solid #ddd;">Impact</th>
+                      <th style="padding:10px; text-align:left;">Solution</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid #eee;">
+                      <td style="padding:10px; border-right:1px solid #ddd;">PC local : 16Go RAM insuffisant pour 5 routeurs + clients</td>
+                      <td style="padding:10px; border-right:1px solid #ddd;">Plantages fréquents, impossible de finir les tests</td>
+                      <td style="padding:10px;"><strong>Migration sur serveur Dell R730</strong> de l'équipe (56Go RAM) → tests fiables</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                      <td style="padding:10px; border-right:1px solid #ddd;">Les routeurs prenaient 2-3 min à converger, script testait trop tôt</td>
+                      <td style="padding:10px; border-right:1px solid #ddd;">Faux négatifs : script disait "pas de connectivité" alors que le réseau finissait juste de converger</td>
+                      <td style="padding:10px;"><strong>Boucle de polling toutes les 5 sec</strong> avec timeout de 4 min + messages de log explicites</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                      <td style="padding:10px; border-right:1px solid #ddd;">Gestion des images Docker propriétaires Juniper (authentification)</td>
+                      <td style="padding:10px; border-right:1px solid #ddd;">Impossibilité de télécharger les images sans login Docker</td>
+                      <td style="padding:10px;"><strong>Utilisation du vrnetlab</strong> (encapsulation QEMU dans Docker) → images prêtes</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                      <td style="padding:10px; border-right:1px solid #ddd;">Pas d'SSH natif dans les conteneurs iperf, besoin d'y accéder</td>
+                      <td style="padding:10px; border-right:1px solid #ddd;">Processus lent : installer SSH juste pour configurer une adresse IP</td>
+                      <td style="padding:10px;"><strong>Utilisation de Docker exec ou nsenter</strong> pour exécuter des commandes directement sans SSH</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:10px; border-right:1px solid #ddd;">Documentation peu claire sur IS-IS en environnement Containerlab</td>
+                      <td style="padding:10px; border-right:1px solid #ddd;">Difficulté à déboguer les problèmes de convergence</td>
+                      <td style="padding:10px;"><strong>Documentation personnelle complète</strong> partagée avec l'équipe (kit de démarrage sur GitLab)</td>
+                    </tr>
+                  </tbody>
+                </table>
 
-                <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
-                <p>J'ai migré vers un serveur dédié (Dell R730) pour lever les verrous matériels. J'ai intégré des namespaces Linux (`nsenter`) pour piloter les conteneurs clients sans avoir besoin d'y installer SSH. J'ai structuré mon travail sur GitLab avec un guide "Kit de démarrage" pour l'équipe.</p>
+                <h4 style="margin-top: 20px; color: #27ae60;">Apprentissages techniques et méthodologiques :</h4>
+                <ul style="margin-left:20px; margin-top:10px;">
+                    <li><strong>Conteneurisation avancée :</strong> Docker namespaces, overlayfs, comment les routeurs virtualisés isolent les interfaces réseau</li>
+                    <li><strong>Automatisation robuste :</strong> Gérer les timeouts, les erreurs silencieuses, et donner du feedback clair (logs + exit codes)</li>
+                    <li><strong>Débogage réseau :</strong> Utiliser <code>docker exec</code> pour accéder aux espaces réseau, comprendre les adjacences IS-IS avec <code>show isis adjacency</code></li>
+                    <li><strong>Infrastructure as Code (IaC) :</strong> Le YAML n'est pas juste du config — c'est du code versionnné qui documenta et reproduit l'infrastructure</li>
+                    <li><strong>Travail en équipe :</strong> Documenter clairement pour que M. Tan Tran puisse redéployer sans moi après mon départ</li>
+                </ul>
+
+                <h4 style="margin-top: 20px; color: #0066cc;">Transversalité :</h4>
+                <p>Cette mission s'appuie directement sur <strong>EVE-NG</strong> (où j'ai appris IS-IS/BGP) mais ajoute une dimension cruciale : l'<strong>automatisation</strong>. Elle prépare aussi l'architecture du futur projet <strong>NetDevOps</strong> en montrant comment traiter l'infrastructure réseau comme du code. Les compétences en Bash scripting sont transversales — elles s'appliquent à n'importe quel projet d'automatisation (serveurs, clouds, CI/CD).</p>
 
                 <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
-                <ul style="margin-left: 20px; font-weight: 600;">
-                    <li>AC23.01 : Automatiser l’administration système (Bash/YAML).</li>
-                    <li>AC22.01 : Déployer des systèmes de transmissions complexes (Architecture BGP).</li>
-                    <li>AC21.04 : Déployer des services réseaux avancés (Conteneurisation).</li>
-                    <li>AC24.06 : Comprendre des documents techniques en anglais.</li>
-                </ul>
+                <table style="width:100%; margin-top:15px; border-collapse:collapse; font-size:0.9em;">
+                  <thead style="background:#2c3e50; color:#fff; font-weight:bold;">
+                    <tr>
+                      <th style="padding:12px; text-align:left; border-right:1px solid #555;">Référence</th>
+                      <th style="padding:12px; text-align:left; border-right:1px solid #555;">Apprentissage Critique</th>
+                      <th style="padding:12px; text-align:center; width:80px;">Niveau</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid #eee; background:#fafafa;">
+                      <td style="padding:12px; border-right:1px solid #ddd; font-weight:bold; color:#27ae60;">AC21.04</td>
+                      <td style="padding:12px; border-right:1px solid #ddd;">Déployer des services réseaux avancés (Conteneurs, routeurs virtualisés, topologies complexes)</td>
+                      <td style="padding:12px; text-align:center;"><span style="background:#27ae60; color:#fff; padding:4px 8px; border-radius:4px;">🟢 Maîtrisé</span></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                      <td style="padding:12px; border-right:1px solid #ddd; font-weight:bold; color:#27ae60;">AC22.01</td>
+                      <td style="padding:12px; border-right:1px solid #ddd;">Déployer des systèmes de transmissions (BGP, IS-IS, adjacences, convergence réseau)</td>
+                      <td style="padding:12px; text-align:center;"><span style="background:#27ae60; color:#fff; padding:4px 8px; border-radius:4px;">🟢 Maîtrisé</span></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee; background:#fafafa;">
+                      <td style="padding:12px; border-right:1px solid #ddd; font-weight:bold; color:#27ae60;">AC23.01</td>
+                      <td style="padding:12px; border-right:1px solid #ddd;">Automatiser l'administration système (Scripts Bash, YAML, CI/CD, Infrastructure as Code)</td>
+                      <td style="padding:12px; text-align:center;"><span style="background:#27ae60; color:#fff; padding:4px 8px; border-radius:4px;">🟢 Maîtrisé</span></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                      <td style="padding:12px; border-right:1px solid #ddd; font-weight:bold; color:#f39c12;">AC24.06</td>
+                      <td style="padding:12px; border-right:1px solid #ddd;">Comprendre et utiliser des documents techniques en anglais (Docs Juniper, Containerlab, vrnetlab)</td>
+                      <td style="padding:12px; text-align:center;"><span style="background:#f39c12; color:#fff; padding:4px 8px; border-radius:4px;">🟡 En cours</span></td>
+                    </tr>
+                    <tr style="background:#fafafa;">
+                      <td style="padding:12px; border-right:1px solid #ddd; font-weight:bold; color:#27ae60;">AC25.02</td>
+                      <td style="padding:12px; border-right:1px solid #ddd;">Collaborer et documenter (Travail en équipe, GitLab, documentation claire pour les autres)</td>
+                      <td style="padding:12px; text-align:center;"><span style="background:#27ae60; color:#fff; padding:4px 8px; border-radius:4px;">🟢 Maîtrisé</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h4 style="margin-top: 20px; color: #2c3e50;">Comparaison avec l'IUT :</h4>
+                <p style="margin-top:10px;">À l'IUT, j'ai appris les <strong>fondamentaux</strong> : IS-IS en laboratoire avec EVE-NG, manuel, quelques routeurs. À Orange, j'ai poussé 10x plus loin : <strong>automatisation complète</strong> (zéro manipulation manuelle), topologies complexes (5 routeurs), déploiement fiable (timeouts, retry logic). C'est la différence entre "Je connais IS-IS" et "Je peux automatiser des déploiements IS-IS en production".</p>
             </div>
         </div>
     </div>

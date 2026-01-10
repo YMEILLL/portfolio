@@ -206,3 +206,55 @@ pre {
 .code-variable { color: #9cdcfe; } /* Variables ($A, kind...) */
 .code-number { color: #b5cea8; }   /* Nombres */
 .code-property { color: #9cdcfe; } /* Clés YAML (topology, image...) */
+
+/* --- ACCORDIONS (DETAILS/SUMMARY) --- */
+details.accordion {
+    background: #eef6ff !important;            /* Bleu très clair */
+    border: 1px solid #b6daff !important;      /* Bordure bleutée */
+    border-left: 4px solid var(--primary) !important; /* Accent orange brand */
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    transition: var(--transition);
+}
+details.accordion:hover {
+    box-shadow: var(--shadow-soft);
+}
+details.accordion > summary {
+    background: #e7f0ff !important;    /* Bandeau plus visible */
+    color: #1b3a57 !important;
+    padding: 10px 12px !important;
+    border-radius: 6px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;                 /* Pour positionner la flèche à droite */
+    padding-right: 88px !important;     /* Espace pour flèche encore plus grande */
+}
+details.accordion[open] > summary {
+    background: #d9e8ff !important;    /* État open légèrement plus sombre */
+    border-bottom: 1px solid #c7dcff;
+}
+details.accordion > summary i { color: var(--primary); }
+details.accordion > div { padding-top: 10px; }
+details.accordion pre { margin-top: 10px; }
+
+/* Flèche à droite + rotation à l'ouverture */
+details.accordion > summary::after {
+    content: '▸';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 2.8rem;                  /* Flèche très grande */
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 2px 6px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease;
+}
+details.accordion[open] > summary::after {
+    transform: translateY(-50%) rotate(90deg);
+}

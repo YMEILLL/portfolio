@@ -16,12 +16,12 @@
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
                     <li>
-                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down"></i></a>
+                        <a href="missions.html" class="active transition-link">Missions &nbsp;<i class="fas fa-chevron-down" style="font-size: 0.75em;"></i></a>
                         <ul class="dropdown">
                             <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
                             <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
-                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
-                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">2. Containerlab (Auto)</a></li>
+                            <li><a href="mission-server.html" class="transition-link">3. Serveur & Système</a></li>
                         </ul>
                     </li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
@@ -33,10 +33,10 @@
     <div class="container section-padding">
         <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
         <div class="mission-detail" style="margin-top: 30px;">
-            <h2>Simulation Réseaux Avancée sur EVE-NG</h2>
             
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
                 <div>
+                    <h2>Simulation Réseaux Avancée sur EVE-NG</h2>
                     <h3>Contexte & Objectifs</h3>
                     <p><strong>Contexte :</strong> Ma première mission d'envergure consistait à maîtriser l'outil d'émulation EVE-NG pour concevoir des topologies de test réalistes simulant un cœur de réseau opérateur.</p>
                     <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 routeurs (Cisco/Juniper) capable de supporter des pannes et d'isoler des flux clients.</p>
@@ -64,23 +64,150 @@
             <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
                 <li><strong>Routage Statique & Résilience :</strong> Configuration manuelle des routes et simulation de pannes (coupure d'interface) pour valider le basculement via des routes flottantes.</li>
                 <li><strong>Segmentation VRF :</strong> Implémentation du <em>Virtual Routing and Forwarding</em> pour créer des tables de routage isolées sur un même équipement physique.</li>
+            </ul>
+
+            <div style="background:#e3f2fd; padding:20px; border-left:4px solid #2196f3; border-radius:8px; margin:20px 0;">
+                <h4 style="margin-bottom:10px; color:#1976d2;"><i class="fas fa-info-circle"></i> C'est quoi IS-IS ? (Explication rapide)</h4>
+                <p style="line-height:1.6;">IS-IS est un protocole de routage. Imagine une entreprise avec plusieurs bureaux reliés par des câbles. Chaque bureau (routeur) doit savoir comment envoyer un message à un autre bureau. IS-IS, c'est le "système de GPS" des routeurs : ils se disent mutuellement "je suis connecté à toi, et voici les autres routeurs que je connais". Du coup, chacun construit une carte mentale du réseau et sait où envoyer le trafic. C'est plus automatique et plus fiable que de tout configurer à la main.</p>
+            </div>
+
+            <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
                 <li><strong>Routage Dynamique IS-IS :</strong> Migration vers le protocole IS-IS (Link-State) pour automatiser la propagation des routes et la convergence du réseau.</li>
             </ul>
 
+            <div style="text-align:center; margin:40px 0;">
+                <img src="img/eve.png" alt="Interface EVE-NG : topologie de 6 routeurs avec configuration IP statique" style="max-width:100%; width:800px; height:auto; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border:1px solid #ddd;">
+                <p style="margin-top:15px; color:#666; font-size:0.95em;"><strong>Aperçu d'EVE-NG :</strong> Interface graphique montrant la topologie complète avec 6 routeurs connectés et configurés en routage statique. Les connexions et configurations sont visibles directement dans l'environnement d'émulation.</p>
+            </div>
+
+            <h3 style="margin-top:30px;"><i class="fas fa-file-alt" style="color:var(--primary);"></i> Traces et Preuves de Compétences</h3>
+            <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:20px;">
+                <h4 style="margin-bottom:15px;">1. Configuration IS-IS sur Juniper (Extrait complet)</h4>
+                <pre style="background:#2d2d2d; color:#fff; padding:15px; border-radius:6px; overflow-x:auto; font-family:monospace; font-size:0.9em;">
+<span class="code-comment"># Configuration complète IS-IS avec métriques personnalisées</span>
+protocols {
+    isis {
+        <span class="code-property">level 2 disable</span>;  <span class="code-comment"># Topologie niveau 1 uniquement (single area)</span>
+        <span class="code-property">reference-bandwidth</span> <span class="code-number">100g</span>;  <span class="code-comment"># Métrique basée sur 100Gbps</span>
+        interface ge-0/0/0.0 {
+            <span class="code-property">point-to-point</span>;
+            <span class="code-property">level 1 metric</span> <span class="code-number">10</span>;  <span class="code-comment"># Coût personnalisé</span>
+            <span class="code-property">hello-padding disable</span>;  <span class="code-comment"># Optimisation MTU</span>
+        }
+        interface ge-0/0/1.0 {
+            <span class="code-property">point-to-point</span>;
+            <span class="code-property">level 1 metric</span> <span class="code-number">20</span>;
+            <span class="code-property">hello-interval</span> <span class="code-number">5</span>;  <span class="code-comment"># Hello plus fréquents (convergence rapide)</span>
+            <span class="code-property">hold-time</span> <span class="code-number">15</span>;
+        }
+        interface lo0.0 {
+            <span class="code-property">passive</span>;  <span class="code-comment"># Pas de Hello sur loopback</span>
+        }
+        <span class="code-property">export</span> <span class="code-string">ISIS-POLICY-OUT</span>;  <span class="code-comment"># Filtrage des routes exportées</span>
+    }
+}
+policy-options {
+    policy-statement ISIS-POLICY-OUT {
+        term <span class="code-number">1</span> {
+            from {
+                <span class="code-property">route-filter</span> <span class="code-string">10.0.0.0/8 orlonger</span>;  <span class="code-comment"># N'exporte que les réseaux privés</span>
+            }
+            then accept;
+        }
+        term <span class="code-number">2</span> {
+            then reject;
+        }
+    }
+}
+routing-options {
+    router-id 192.168.1.1;
+    autonomous-system 65000;
+}</pre>
+                <p style="margin-top:10px; font-style:italic; color:#666;"><strong>Points avancés :</strong> J'ai configuré des métriques personnalisées par interface (priorité aux liens rapides), ajusté les timers Hello/Hold pour une convergence plus rapide, et appliqué une policy pour filtrer les routes annoncées. Cette config va au-delà d'un IS-IS basique et montre une compréhension opérationnelle du protocole.</p>
+            </div>
+
+            <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:20px;">
+                <h4 style="margin-bottom:15px;">2. Validation de la Convergence (Capture Wireshark)</h4>
+                <p>J'ai utilisé Wireshark pour capturer les paquets IS-IS Hello et LSP (Link State PDU) afin de vérifier que la topologie convergeait correctement. Cette analyse m'a permis de comprendre le timing des échanges (Hello interval : 9s, Hold time : 27s).</p>
+                <p style="margin-top:10px; background:#e3f2fd; padding:10px; border-left:4px solid #2196f3; border-radius:4px;">
+                    <strong>🔍 Enseignement :</strong> La capture réseau est indispensable pour déboguer les protocoles de routage. Elle permet de distinguer un problème de configuration d'un problème de connectivité physique.
+                </p>
+            </div>
+
+            <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:20px;">
+                <h4 style="margin-bottom:15px;">3. Documentation Procédurale</h4>
+                <p>J'ai rédigé une procédure complète pour m'aider décrivant les étapes de création d'une topologie EVE-NG. Cette documentation inclut :</p>
+                <ul style="margin-left:20px; margin-top:10px;">
+                    <li>Template de configuration IS-IS réutilisable</li>
+                    <li>Guide de troubleshooting (commandes de diagnostic)</li>
+                </ul>
+            </div>
+
             <div class="reflexive-box">
-                <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
-                <p>Cette mission a été fondamentale pour faire le lien entre la théorie (CCNA) et la pratique complexe.</p>
+                <h3><i class="fas fa-microscope"></i> Analyse Réflexive & Autoévaluation</h3>
+                <p>Cette mission a été fondamentale pour faire le lien entre la théorie (CCNA) et la pratique complexe. Elle m'a confronté aux réalités de l'administration réseau à l'échelle d'un opérateur.</p>
                 
-                <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
-                <p>La configuration manuelle de 6 routeurs est fastidieuse et sujette aux erreurs humaines. De plus, EVE-NG consommait énormément de ressources sur mon poste, limitant la taille de la topologie. L'absence d'automatisation native (tout se fait à la souris) était un frein.</p>
+                <h4 style="margin-top: 20px; color: #d35400;"><i class="fas fa-exclamation-triangle"></i> Difficultés Rencontrées & Solutions Apportées</h4>
+                <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+                    <tr style="background:#fef5e7; border-bottom:2px solid #f39c12;">
+                        <th style="padding:10px; text-align:left; width:40%;">Difficulté</th>
+                        <th style="padding:10px; text-align:left; width:60%;">Solution Mise en Œuvre</th>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; vertical-align:top;">Configuration manuelle fastidieuse et sujette aux erreurs (copier-coller de 6 routeurs)</td>
+                        <td style="padding:10px; vertical-align:top;">Création de templates de configuration réutilisables. Documentation des erreurs fréquentes pour éviter la répétition.</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; vertical-align:top;">EVE-NG consomme énormément de RAM (8 Go pour 6 routeurs), limitant la taille des topologies</td>
+                        <td style="padding:10px; vertical-align:top;">Identification des images les plus légères (vJunos vs vMX). Cette contrainte m'a poussé à explorer Containerlab pour la suite.</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; vertical-align:top;">Absence d'automatisation native (tout se fait à la souris, difficile à versionner)</td>
+                        <td style="padding:10px; vertical-align:top;">Utilisation de captures d'écran et documentation textuelle en attendant un outil plus adapté (Containerlab).</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; vertical-align:top;">Débogage complexe : le réseau ne converge pas, mais pourquoi ?</td>
+                        <td style="padding:10px; vertical-align:top;">Utilisation de Wireshark intégré pour visualiser les paquets IS-IS Hello. Apprentissage des commandes de diagnostic (<code>show isis adjacency</code>, <code>show route protocol isis</code>).</td>
+                    </tr>
+                </table>
 
-                <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
-                <p>J'ai utilisé Wireshark intégré pour débuguer mes configurations IS-IS en visualisant les paquets Hello. J'ai documenté mes procédures pour ne pas refaire les mêmes erreurs. Surtout, cette expérience m'a poussé à chercher une alternative plus légère et scriptable : Containerlab.</p>
+                <h4 style="margin-top: 20px; color: #27ae60;"><i class="fas fa-lightbulb"></i> Apprentissages Clés & Progression</h4>
+                <ul style="margin-left:20px; list-style-type:none; margin-top:10px;">
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Technique :</strong> Maîtrise du protocole IS-IS (métriques, adjacences, LSP flooding). Compréhension de la différence entre routage statique et dynamique dans un contexte opérationnel.</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Méthodologique :</strong> Importance de la documentation et de la rigueur dans la configuration. Une erreur de syntaxe peut bloquer toute l'architecture.</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Soft Skills :</strong> Persévérance face aux blocages techniques. Capacité à rechercher dans la documentation officielle (Juniper TechLibrary, RFC).</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Prise de Recul :</strong> Cette mission m'a fait réaliser les limites d'EVE-NG pour l'automatisation. Elle a motivé ma proposition de migration vers Containerlab (mission 3).</li>
+                </ul>
 
-                <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
-                <ul style="margin-left: 20px; font-weight: 600;">
-                    <li>AC21.01 : Configurer et dépanner le routage dynamique (IS-IS).</li>
-                    <li>AC21.05 : Identifier les réseaux opérateurs (VRF/Architecture).</li>
+                <h4 style="margin-top: 20px; color: #2980b9;"><i class="fas fa-graduation-cap"></i> Apprentissages Critiques (AC) Mobilisés & Niveau Atteint</h4>
+                <table style="width:100%; border-collapse:collapse; margin-top:10px; background:#fff;">
+                    <tr style="background:#3498db; color:#fff;">
+                        <th style="padding:10px; text-align:left;">Code AC</th>
+                        <th style="padding:10px; text-align:left;">Intitulé</th>
+                        <th style="padding:10px; text-align:center;">Niveau</th>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;"><strong>AC21.01</strong></td>
+                        <td style="padding:10px;">Configurer et dépanner le routage dynamique dans un réseau</td>
+                        <td style="padding:10px; text-align:center; font-size:1.3em; color:#27ae60;"><strong>🟢 Maîtrisé</strong></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;"><strong>AC21.05</strong></td>
+                        <td style="padding:10px;">Identifier les réseaux opérateurs et l'architecture d'Internet</td>
+                        <td style="padding:10px; text-align:center; font-size:1.3em; color:#27ae60;"><strong>🟢 Maîtrisé</strong></td>
+                    </tr>
+                </table>
+                <p style="margin-top:15px; padding:15px; background:#e8f4fd; border-left:4px solid #2980b9; border-radius:4px;">
+                    <strong>Autoévaluation :</strong> Je considère AC21.01 comme maîtrisé car je suis capable de configurer, déboguer et optimiser IS-IS de manière autonome. AC21.05 est également maîtrisé : j'ai appliqué les concepts d'architectures multi-AS avec IS-IS en mission. Grâce à mon apprentissage à l'entreprise, je commence à bien maîtriser BGP et MPLS — j'ai notamment suivi une semaine de formation spécialisée sur MPLS animée par Guillaume, et je l'étudie régulièrement en cours à l'IUT. Ces protocoles deviennent de plus en plus clairs pour moi.
+
+                </p>
+
+                <h4 style="margin-top: 20px; color: #8e44ad;"><i class="fas fa-recycle"></i> Transférabilité & Réutilisation des Acquis</h4>
+                <p>Les compétences acquises sur cette mission sont directement transférables à d'autres contextes :</p>
+                <ul style="margin-left:20px; margin-top:10px;">
+                    <li><strong>Dans d'autres missions :</strong> J'ai réutilisé mes connaissances IS-IS pour les topologies Containerlab (mission 3).</li>
+                    <li><strong>À l'IUT :</strong> J'ai pu aider mes camarades sur les TPs de routage en expliquant les concepts de Link-State.</li>
+                    <li><strong>Situations futures :</strong> Ces compétences sont essentielles pour tout poste d'ingénieur réseau. La maîtrise des protocoles IGP est un prérequis universel.</li>
                 </ul>
             </div>
         </div>

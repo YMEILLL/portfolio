@@ -16,12 +16,12 @@
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
                     <li>
-                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down"></i></a>
+                        <a href="missions.html" class="active transition-link">Missions &nbsp;<i class="fas fa-chevron-down" style="font-size: 0.75em;"></i></a>
                         <ul class="dropdown">
                             <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
                             <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
-                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
-                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">2. Containerlab (Auto)</a></li>
+                            <li><a href="mission-server.html" class="transition-link">3. Serveur & Système</a></li>
                         </ul>
                     </li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
@@ -33,11 +33,39 @@
     <div class="container section-padding">
         <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
         <div class="mission-detail" style="margin-top: 30px;">
-            <h2>Mise en production d'un Serveur Physique</h2>
             
-            <h3>Contexte & Problématique</h3>
-            <p><strong>Contexte :</strong> Mon poste de développement (16 Go RAM) était saturé par les machines virtuelles nécessaires aux simulations réseaux complexes.</p>
-            <p><strong>Objectif :</strong> Déployer une infrastructure dédiée et robuste en datacenter pour héberger nos environnements de test.</p>
+            <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
+                <div>
+                    <h2>Mise en Production d'un Serveur Physique</h2>
+                    <h3>Contexte & Problématique</h3>
+                    <p><strong>Le problème de départ :</strong> Après avoir découvert Containerlab (mission 2), j'ai commencé à tester l'outil sur une VM sur mon PC personnel (16 Go RAM, processeur i5). Ça marchait bien pour des topologies simples (2-3 routeurs), mais dès que je montais à 5-6 routeurs Docker, ma machine s'effondrait. Les routeurs virtuels consomment chacun 2-3 Go de RAM, et mon PC crashait régulièrement.</p>
+                    
+                    <p style="margin-top:10px;"><strong>Pourquoi c'était bloquant :</strong> Impossible de tester des scénarios réalistes (5 routeurs avec BGP, iperf pour les tests de bande passante) sans infrastructure stable. Mon équipe avait besoin d'un environnement de test permanent, accessible à distance, qui ne dépende pas de mon poste.</p>
+
+                    <p style="margin-top:10px;"><strong>La solution proposée :</strong> Déployer un serveur physique dédié dans le datacenter d'Orange Atalante. Ce serveur, un <strong>Dell PowerEdge R730</strong> (56 Go RAM, 2x Xeon E5), pouvait héberger 10-15 routeurs simultanément. L'objectif était de mettre en production cette machine : installation matérielle, OS, sécurisation des accès, et migration de mes topologies Containerlab dessus.</p>
+
+                    <div style="background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin-top: 15px; border-radius: 4px;">
+                        <strong><i class="fas fa-lightbulb" style="color:#ffc107;"></i> Enjeu :</strong> C'était ma première expérience en datacenter réel — pas un lab étudiant, mais un environnement de production avec contraintes d'accès, procédures de sécurité et responsabilité opérationnelle. Ce serveur allait devenir la plateforme de test de toute l'équipe.
+                    </div>
+                </div>
+
+                <div class="sidebar-wrapper">
+                    <div style="background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:20px; text-align:center;">
+                        <i class="fas fa-server" style="font-size:60px; color:var(--primary); margin-bottom:15px;"></i>
+                        <h4 style="margin-bottom:10px;">Matériel</h4>
+                        <p style="font-size:0.9em; color:#666;">Dell PowerEdge R730</p>
+                    </div>
+                    <div class="card" style="padding: 1rem; background: #f9f9f9; border-top: none;">
+                        <h4 style="margin-bottom:10px;">Technologies</h4>
+                        <ul style="margin-left:20px; list-style-type: square;">
+                            <li>Ubuntu Server 20.04</li>
+                            <li>SSH / Bastion</li>
+                            <li>Docker Engine</li>
+                            <li>Datacenter Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
 
@@ -55,20 +83,79 @@
             </div>
 
             <div class="reflexive-box">
-                <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
-                <p>Cette mission m'a sorti du cadre purement "logiciel" pour me confronter à la réalité physique du réseau.</p>
+                <h3><i class="fas fa-microscope"></i> Analyse Réflexive & Autoévaluation</h3>
+                <p>Cette mission m'a sorti du cadre purement "logiciel" pour me confronter à la réalité physique du réseau et aux contraintes opérationnelles d'un datacenter.</p>
                 
-                <h4 style="margin-top: 15px; color: #d35400;">Difficultés surmontées :</h4>
-                <p>L'environnement datacenter est hostile (bruit, froid, accès restreint). Il a fallu préparer l'intervention minutieusement. La configuration du rebond SSH via PuTTY était une nouveauté technique pour moi.</p>
+                <h4 style="margin-top: 20px; color: #d35400;"><i class="fas fa-exclamation-triangle"></i> Difficultés Rencontrées & Solutions Apportées</h4>
+                <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+                    <tr style="background:#fef5e7; border-bottom:2px solid #f39c12;">
+                        <th style="padding:10px; text-align:left; width:40%;">Difficulté</th>
+                        <th style="padding:10px; text-align:left; width:60%;">Solution Mise en Œuvre</th>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; vertical-align:top;">Environnement datacenter hostile (bruit intense, froid, accès restreint)</td>
+                        <td style="padding:10px; vertical-align:top;">Préparation minutieuse de l'intervention en amont : checklist du matériel nécessaire, planification du temps d'accès, coordination avec l'équipe sécurité.</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; vertical-align:top;">Première expérience de rackage : gestion du poids (20kg), câblage structuré, contraintes d'alimentation redondée</td>
+                        <td style="padding:10px; vertical-align:top;">Travail en binôme avec M. Tan Tran (transfert de compétences). Respect des bonnes pratiques : étiquetage des câbles, documentation de la position en baie.</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; vertical-align:top;">Configuration d'un rebond SSH via Bastion : nouvelle technique pour moi</td>
+                        <td style="padding:10px; vertical-align:top;">Étude de la documentation PuTTY sur le SSH tunneling. Configuration de clés SSH pour éviter les mots de passe. Automatisation de la connexion via script batch.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; vertical-align:top;">Installation Ubuntu Server en mode texte (pas d'interface graphique)</td>
+                        <td style="padding:10px; vertical-align:top;">Utilisation du guide officiel Ubuntu Server et des ressources Orange internes. Apprentissage de la configuration réseau statique via Netplan.</td>
+                    </tr>
+                </table>
 
-                <h4 style="margin-top: 15px; color: #27ae60;">Solutions apportées :</h4>
-                <p>J'ai travaillé en binôme avec M. Tan Tran pour l'installation physique (transfert de compétences). Pour l'accès, j'ai configuré des clés SSH et automatisé la connexion au Bastion pour rendre l'administration fluide depuis mon bureau.</p>
-
-                <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;"><strong>Apprentissages Critiques (AC) validés :</strong></p>
-                <ul style="margin-left: 20px; font-weight: 600;">
-                    <li>AC22.02 : Mettre en place un accès distant sécurisé (Bastion SSH).</li>
-                    <li>AC21.06 : Travailler en équipe pour développer ses compétences.</li>
+                <h4 style="margin-top: 20px; color: #27ae60;"><i class="fas fa-lightbulb"></i> Apprentissages Clés & Progression</h4>
+                <ul style="margin-left:20px; list-style-type:none; margin-top:10px;">
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Technique :</strong> Découverte du hardware serveur (Dell iDRAC, contrôleurs RAID, alimentation redondée). Maîtrise de l'administration Linux en ligne de commande (SSH, utilisateurs, permissions).</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Sécurité :</strong> Compréhension de l'architecture Bastion (DMZ, isolation réseau) et de son rôle dans la sécurité opérationnelle. Configuration de l'authentification par clés SSH.</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Méthode :</strong> Importance de la documentation (position en baie, adresse IP, procédure d'accès) pour le travail d'équipe et la maintenance future.</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Soft Skills :</strong> Travail collaboratif efficace. Humilité pour demander de l'aide sur des aspects physiques que je ne maîtrisais pas. Adaptabilité face à un environnement nouveau (datacenter).</li>
                 </ul>
+
+                <h4 style="margin-top: 20px; color: #2980b9;"><i class="fas fa-graduation-cap"></i> Apprentissages Critiques (AC) Mobilisés & Niveau Atteint</h4>
+                <table style="width:100%; border-collapse:collapse; margin-top:10px; background:#fff;">
+                    <tr style="background:#3498db; color:#fff;">
+                        <th style="padding:10px; text-align:left;">Code AC</th>
+                        <th style="padding:10px; text-align:left;">Intitulé</th>
+                        <th style="padding:10px; text-align:center;">Niveau</th>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;"><strong>AC21.03</strong></td>
+                        <td style="padding:10px;">Déployer des postes clients et des solutions virtualisées adaptées</td>
+                        <td style="padding:10px; text-align:center; font-size:1.3em; color:#27ae60;"><strong>🟢 Maîtrisé</strong></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;"><strong>AC22.02</strong></td>
+                        <td style="padding:10px;">Mettre en place un accès distant sécurisé (Bastion SSH)</td>
+                        <td style="padding:10px; text-align:center; font-size:1.3em; color:#27ae60;"><strong>🟢 Maîtrisé</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;"><strong>AC21.06</strong></td>
+                        <td style="padding:10px;">Travailler en équipe pour développer ses compétences</td>
+                        <td style="padding:10px; text-align:center; font-size:1.3em; color:#27ae60;"><strong>🟢 Maîtrisé</strong></td>
+                    </tr>
+                </table>
+                <p style="margin-top:15px; padding:15px; background:#e8f4fd; border-left:4px solid #2980b9; border-radius:4px;">
+                    <strong>Autoévaluation :</strong> AC21.03 est maîtrisé : je suis autonome sur l'installation et la configuration de serveurs Linux. AC22.02 est maîtrisé : je comprends l'architecture Bastion et sais mettre en œuvre une connexion sécurisée. AC21.06 est validé par le travail collaboratif réussi avec M. Tran.
+                </p>
+
+                <h4 style="margin-top: 20px; color: #8e44ad;"><i class="fas fa-recycle"></i> Transférabilité & Réutilisation des Acquis</h4>
+                <p>Cette mission m'a donné des compétences transversales essentielles :</p>
+                <ul style="margin-left:20px; margin-top:10px;">
+                    <li><strong>Dans d'autres missions :</strong> Le serveur Dell est devenu la plateforme d'hébergement de Containerlab (mission 3). Les compétences SSH sont utilisées quotidiennement.</li>
+                    <li><strong>À l'IUT :</strong> J'ai pu aider mes camarades sur les TPs d'administration Linux (gestion des utilisateurs, permissions, services systemd).</li>
+                    <li><strong>Situations futures :</strong> L'administration de serveurs Linux est une compétence universelle en infrastructure IT. L'architecture Bastion est un standard de sécurité que je retrouverai dans tous les environnements professionnels.</li>
+                </ul>
+
+                <p style="margin-top:20px; background:#fff3cd; padding:15px; border-left:4px solid #ffc107; border-radius:4px;">
+                    <strong><i class="fas fa-star" style="color:#ffc107;"></i> Impact sur mon Parcours :</strong> Cette mission m'a révélé que je prends plaisir au travail "bas niveau" (hardware, OS, réseau physique). Elle a renforcé ma conviction que le métier d'ingénieur réseau nécessite une vision complète de la stack (du câble au logiciel).
+                </p>
             </div>
         </div>
     </div>

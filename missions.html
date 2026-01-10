@@ -16,12 +16,12 @@
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
                     <li>
-                        <a href="missions.html" class="active transition-link">Missions <i class="fas fa-caret-down" style="font-size: 0.8em;"></i></a>
+                        <a href="missions.html" class="active transition-link">Missions &nbsp;<i class="fas fa-chevron-down" style="font-size: 0.75em;"></i></a>
                         <ul class="dropdown">
                             <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
                             <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
-                            <li><a href="mission-server.html" class="transition-link">2. Serveur & Système</a></li>
-                            <li><a href="mission-clab.html" class="transition-link">3. Containerlab (Auto)</a></li>
+                            <li><a href="mission-clab.html" class="transition-link">2. Containerlab (Auto)</a></li>
+                            <li><a href="mission-server.html" class="transition-link">3. Serveur & Système</a></li>
                         </ul>
                     </li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
@@ -34,29 +34,6 @@
         <h2>Mes Missions Significatives</h2>
         <p style="margin-bottom: 2rem;">Une progression vers l'automatisation : de la simulation graphique à l'Infrastructure as Code.</p>
 
-        <div class="tools-banner">
-            
-            <div class="tool-item">
-                <a href="https://www.eve-ng.net/" target="_blank" title="Visiter le site officiel EVE-NG">
-                    <div class="tool-logo-container">
-                        <img src="img/Logo_EVE_Color-1-e1573260071537.png" alt="Logo EVE-NG">
-                    </div>
-                    <span>Émulation Graphique</span>
-                </a>
-            </div>
-            
-            <div class="tool-divider"></div>
-
-            <div class="tool-item">
-                <a href="https://containerlab.dev/" target="_blank" title="Visiter le site officiel Containerlab">
-                    <div class="tool-logo-container">
-                        <img src="img/containerlab_export_white_ink.svg" alt="Logo Containerlab">
-                    </div>
-                    <span>Automatisation (IaC)</span>
-                </a>
-            </div>
-
-        </div>
         <div class="grid-3">
             <div class="card">
                 <div class="card-header"><h3>1. EVE-NG & Routage</h3></div>
@@ -70,7 +47,18 @@
             </div>
 
             <div class="card">
-                <div class="card-header"><h3>2. Infrastructure & Serveur</h3></div>
+                <div class="card-header"><h3>2. Containerlab (Auto)</h3></div>
+                <div class="card-body">
+                    <p>Migration vers Docker pour optimiser la RAM. Création de scripts Bash et définition de topologies en YAML.</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tag">Docker</span> <span class="tag">DevOps</span>
+                    </div>
+                    <a href="mission-clab.html" class="btn transition-link" style="width:100%;">Voir le détail</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>3. Infrastructure & Serveur</h3></div>
                 <div class="card-body">
                     <p>Installation physique d'un serveur Dell R730, déploiement d'Ubuntu Server et sécurisation SSH via Bastion.</p>
                     <div style="margin-top: 15px;">
@@ -79,15 +67,37 @@
                     <a href="mission-server.html" class="btn transition-link" style="width:100%;">Voir le détail</a>
                 </div>
             </div>
+        </div>
 
-            <div class="card">
-                <div class="card-header"><h3>3. Containerlab (Auto)</h3></div>
-                <div class="card-body">
-                    <p>Migration vers Docker pour optimiser la RAM. Création de scripts Bash et définition de topologies en YAML.</p>
-                    <div style="margin-top: 15px;">
-                        <span class="tag">Docker</span> <span class="tag">DevOps</span>
+        <hr style="border:0; border-top:2px solid var(--primary); margin:50px 0;">
+
+        <h2 style="margin-bottom:40px;">Les Outils de Base</h2>
+        <p style="color:#666; margin-bottom:30px; font-size:0.95em;">Deux technologies essentielles qui ont structuré mes missions.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+            <div style="text-align:center;">
+                <a href="https://www.eve-ng.net/" target="_blank" title="Visiter le site officiel EVE-NG" style="text-decoration:none;">
+                    <div style="background:#f9f9f9; padding:30px; border-radius:10px; margin-bottom:20px; border:2px solid transparent; transition:all 0.3s ease;">
+                        <img src="img/Logo_EVE_Color-1-e1573260071537.png" alt="Logo EVE-NG" style="max-height:80px; margin-bottom:15px; display:inline-block;">
                     </div>
-                    <a href="mission-clab.html" class="btn transition-link" style="width:100%;">Voir le détail</a>
+                </a>
+                <h3 style="margin-bottom:10px;">EVE-NG</h3>
+                <p style="color:#666; margin-bottom:15px; line-height:1.6;">Un simulateur graphique de réseaux. Tu y ajoutes des routeurs virtuels, tu les relis ensemble avec des câbles virtuels, et tu les configures via une interface graphique. C'est parfait pour apprendre comment les routeurs se parlent.</p>
+                <div style="background:#e3f2fd; padding:12px; border-left:4px solid #2196f3; border-radius:4px;">
+                    <strong style="color:#1976d2;">Lié à la Mission 1</strong> : EVE-NG & Routage
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <a href="https://containerlab.dev/" target="_blank" title="Visiter le site officiel Containerlab" style="text-decoration:none;">
+                    <div style="background:#f9f9f9; padding:30px; border-radius:10px; margin-bottom:20px; border:2px solid transparent; transition:all 0.3s ease;">
+                        <img src="img/containerlab_export_white_ink.svg" alt="Logo Containerlab" style="max-height:80px; margin-bottom:15px; display:inline-block;">
+                    </div>
+                </a>
+                <h3 style="margin-bottom:10px;">Containerlab</h3>
+                <p style="color:#666; margin-bottom:15px; line-height:1.6;">Un outil d'automatisation qui lance des réseaux complets via des fichiers texte (YAML). Au lieu de cliquer sur une interface, tu décris ta topologie en code. C'est plus rapide, plus fiable, et tu peux sauvegarder tout sur Git.</p>
+                <div style="background:#e8f5e9; padding:12px; border-left:4px solid #27ae60; border-radius:4px;">
+                    <strong style="color:#27ae60;">Lié à la Mission 2</strong> : Containerlab (Automatisation)
                 </div>
             </div>
         </div>
