@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Youenn<span>Meillarec</span></div>
+                <div class="logo">Youenn <span>Meillarec</span></div>
                 <ul class="nav-links">
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
@@ -32,8 +32,9 @@
 
     <div class="container section-padding">
         <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
+        
         <div class="mission-detail" style="margin-top: 30px;">
-            <h2>Automatisation d'Infrastructure avec Containerlab</h2>
+            <h2>Mission 3 : Automatisation Complète avec Containerlab</h2>
             
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
                 <div>
@@ -43,7 +44,7 @@
                     <p style="margin-top:10px;"><strong>Le problème :</strong> Ma machine (16 Go RAM) s'est vite retrouvée saturée quand je lançais 4-5 routeurs Docker. C'est ce qui a motivé plus tard le déploiement d'un serveur dédié (mission 3).</p>
                 </div>
                 <div class="sidebar-wrapper">
-                    <a href="https://containerlab.dev/" target="_blank" class="sidebar-logo-container dark" title="Site officiel Containerlab">
+                    <a href="https://containerlab.dev/" target="_blank" class="sidebar-logo-container dark">
                         <img src="img/containerlab_export_white_ink.svg" alt="Logo Containerlab" class="sidebar-logo-img">
                     </a>
                 </div>
@@ -112,6 +113,7 @@
 <span class="code-comment"># topo.clab.yml - Description complète de ma topologie 5 routeurs + 2 clients</span>
 <span class="code-property">name</span>: vjunos-iperf-lab-bgp-isis
 <span class="code-property">topology</span>:
+  <span class="code-property">name</span>: <span class="code-string">"projet-orange-auto"</span>
   <span class="code-property">nodes</span>:
     <span class="code-comment"># === Routeurs Juniper (5 au total) ===</span>
     <span class="code-property">DL</span>:  <span class="code-comment"># Distribution Left - clients côté gauche</span>
@@ -446,15 +448,5 @@ default via 172.20.20.1 dev eth0
     </div>
 
     <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
-    <script>
-        document.querySelectorAll('.transition-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                let target = this.href;
-                document.body.classList.add('fade-out');
-                setTimeout(() => window.location.href = target, 500);
-            });
-        });
-    </script>
 </body>
 </html>

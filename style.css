@@ -47,8 +47,9 @@ header {
 
 nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
 
+/* Espace ajouté dans le logo */
 .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; color: var(--white); text-transform: uppercase; }
-.logo span { color: var(--primary); }
+.logo span { color: var(--primary); margin-left: 5px; } 
 
 .nav-links { list-style: none; display: flex; gap: 30px; height: 100%; }
 .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition); position: relative; display: flex; align-items: center; height: 100%; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -83,34 +84,12 @@ h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 80px; he
 .reflexive-box h3 { color: var(--primary); margin-bottom: 15px; font-weight: 700; }
 .skill-bar { background: #eee; border-radius: 50px; height: 12px; margin-top: 10px; overflow: hidden; }
 .skill-fill { background: var(--primary); height: 100%; display: block; border-radius: 50px; }
-pre { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; overflow-x: auto; font-family: 'Consolas', monospace; font-size: 0.9rem; margin: 15px 0; border: 1px solid #444; }
 
-/* 4. IMAGES DANS LE CONTENU (NOUVEAU) */
-.content-img {
-    width: 100%;
-    max-width: 650px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: var(--shadow-soft);
-    margin: 25px auto;
-    display: block;
-    border: 1px solid #eee;
-}
+/* 4. IMAGES */
+.content-img { width: 100%; max-width: 650px; height: auto; border-radius: 8px; box-shadow: var(--shadow-soft); margin: 25px auto; display: block; border: 1px solid #eee; }
 
-/* 5. BANNIÈRE OUTILS (MISSIONS) */
-.tools-banner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    margin-bottom: 4rem;
-    padding: 30px;
-    background: var(--secondary-dark);
-    border-radius: 8px;
-    box-shadow: var(--shadow-soft);
-    border-bottom: 4px solid var(--primary);
-}
-
+/* 5. BANNIÈRE OUTILS */
+.tools-banner { display: flex; justify-content: center; align-items: center; gap: 60px; margin-bottom: 4rem; padding: 30px; background: var(--secondary-dark); border-radius: 8px; box-shadow: var(--shadow-soft); border-bottom: 4px solid var(--primary); }
 .tool-item { transition: var(--transition); }
 .tool-item a { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; }
 .tool-logo-container { height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; transition: var(--transition); }
@@ -120,24 +99,14 @@ pre { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; ov
 .tool-item:hover span { color: var(--primary); }
 .tool-divider { height: 50px; width: 2px; background: #444; }
 
-/* 6. SIDEBAR (ENTREPRISE & DÉTAILS) */
+/* 6. SIDEBAR */
 .sidebar-wrapper { display: flex; flex-direction: column; gap: 2rem; }
-.sidebar-logo-container { 
-    background: var(--white); 
-    padding: 2rem; 
-    border-radius: 8px; 
-    box-shadow: var(--shadow-soft); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    transition: var(--transition); 
-    width: 100%; 
-}
+.sidebar-logo-container { background: var(--white); padding: 2rem; border-radius: 8px; box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; transition: var(--transition); width: 100%; }
 .sidebar-logo-container.dark { background: var(--secondary-dark); border: 1px solid #444; }
 .sidebar-logo-container:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
 .sidebar-logo-img { width: 100%; height: auto; max-height: 150px; object-fit: contain; }
 
-/* 7. HERO SPLIT & LOGOS INDEX */
+/* 7. HERO SPLIT */
 .hero-split { flex-grow: 1; display: flex; align-items: center; position: relative; background: radial-gradient(circle at 0% 0%, rgba(255, 121, 0, 0.03) 0%, transparent 40%), radial-gradient(circle at 100% 100%, rgba(30, 30, 30, 0.03) 0%, transparent 40%); padding: 4rem 0; }
 .split-container { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: center; }
 .profile-side { text-align: center; }
@@ -164,29 +133,98 @@ pre { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; ov
 .arrow { margin-left: auto; color: #ddd; font-size: 1.2rem; transition: var(--transition); }
 .nav-card:hover .arrow { color: var(--primary); transform: translateX(5px); }
 
-/* 8. FOOTER & ANIM */
-footer { background: var(--dark); color: #888; text-align: center; height: 100px; display: flex; align-items: center; justify-content: center; width: 100%; margin-top: auto; flex-shrink: 0; font-size: 0.9rem; border-top: 1px solid #333; }
-@keyframes pageFadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes menuFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-body.fade-out { opacity: 0; transform: translateY(-20px); transition: all 0.5s ease; }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .split-container, .tools-banner { flex-direction: column; gap: 3rem; }
-    .hero-split { padding: 3rem 0; }
-    .profile-side { order: 1; }
-    .nav-side { order: 2; }
-    .intro-text h1 { font-size: 2.5rem; }
-    .partners-logos { justify-content: center; }
-    .tool-divider { width: 50px; height: 2px; }
+/* --- 8. FOOTER MODERNE --- */
+footer {
+    background: var(--dark);
+    color: #ccc;
+    padding: 4rem 0 2rem 0;
+    border-top: 4px solid var(--primary);
+    margin-top: auto;
+    width: 100%;
+    flex-shrink: 0;
 }
 
-/* ... (Garde tout le CSS précédent) ... */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
 
-/* --- COLORATION SYNTAXIQUE (STYLE VS CODE) --- */
+.footer-col h4 {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary);
+}
+
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+
+/* Correction COULEUR LIENS FOOTER (Gris par défaut, pas bleu) */
+.footer-links a { 
+    color: #ccc !important; /* Force le gris */
+    text-decoration: none; 
+    transition: var(--transition); 
+    font-size: 0.95rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+.footer-links a:hover { 
+    color: var(--primary) !important; /* Orange au survol */
+    transform: translateX(5px); 
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+.social-icon:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 121, 0, 0.4);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* --- COLORATION CODE --- */
 pre {
-    background: #1e1e1e; /* Fond sombre VS Code */
-    color: #d4d4d4;      /* Texte clair par défaut */
+    background: #1e1e1e;
+    color: #d4d4d4;
     padding: 20px;
     border-radius: 6px;
     overflow-x: auto;
@@ -197,6 +235,13 @@ pre {
     line-height: 1.5;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+.code-keyword { color: #c586c0; font-weight: bold; }
+.code-function { color: #dcdcaa; }
+.code-string { color: #ce9178; }
+.code-comment { color: #6a9955; font-style: italic; }
+.code-variable { color: #9cdcfe; }
+.code-number { color: #b5cea8; }
+.code-property { color: #9cdcfe; }
 
 /* Couleurs spécifiques VS Code */
 .code-keyword { color: #c586c0; font-weight: bold; } /* Mots clés (if, while, nodes...) */

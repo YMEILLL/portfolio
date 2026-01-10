@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Youenn<span>Meillarec</span></div>
+                <div class="logo">Youenn <span>Meillarec</span></div>
                 <ul class="nav-links">
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
@@ -32,6 +32,7 @@
 
     <div class="container section-padding">
         <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
+        
         <div class="mission-detail" style="margin-top: 30px;">
             
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
@@ -41,18 +42,14 @@
                     <p><strong>Contexte :</strong> Ma première mission d'envergure consistait à maîtriser l'outil d'émulation EVE-NG pour concevoir des topologies de test réalistes simulant un cœur de réseau opérateur.</p>
                     <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 routeurs (Cisco/Juniper) capable de supporter des pannes et d'isoler des flux clients.</p>
                 </div>
-                
                 <div class="sidebar-wrapper">
-                    <a href="https://www.eve-ng.net/" target="_blank" class="sidebar-logo-container" title="Site officiel EVE-NG">
-                        <img src="img/Logo_EVE_Color-1-e1573260071537.png" alt="Logo EVE-NG" class="sidebar-logo-img">
-                    </a>
                     <div class="card" style="padding: 1rem; background: #f9f9f9; border-top: none;">
-                        <h4 style="margin-bottom:10px;">Outils Techniques</h4>
-                        <ul style="margin-left:20px; list-style-type: square;">
-                            <li>EVE-NG Pro</li>
-                            <li>Wireshark</li>
-                            <li>Cisco IOS XR / Juniper Junos</li>
-                            <li>Protocoles IGP (IS-IS)</li>
+                        <h4 style="margin-bottom:10px;">Environnement Technique</h4>
+                        <ul style="margin-left:20px; list-style-type: square; font-size: 0.9rem;">
+                            <li><strong>Infrastructure :</strong> Serveur EVE-NG partagé</li>
+                            <li><strong>Protocole :</strong> IS-IS (Link-State)</li>
+                            <li><strong>Outils :</strong> Wireshark, CLI Cisco/Juniper</li>
+                            <li><strong>Limite :</strong> Configuration 100% manuelle.</li>
                         </ul>
                     </div>
                 </div>
@@ -210,19 +207,10 @@ routing-options {
                     <li><strong>Situations futures :</strong> Ces compétences sont essentielles pour tout poste d'ingénieur réseau. La maîtrise des protocoles IGP est un prérequis universel.</li>
                 </ul>
             </div>
+
         </div>
     </div>
 
     <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
-    <script>
-        document.querySelectorAll('.transition-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                let target = this.href;
-                document.body.classList.add('fade-out');
-                setTimeout(() => window.location.href = target, 500);
-            });
-        });
-    </script>
 </body>
 </html>

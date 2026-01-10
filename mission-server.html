@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Youenn<span>Meillarec</span></div>
+                <div class="logo">Youenn <span>Meillarec</span></div>
                 <ul class="nav-links">
                     <li><a href="index.html" class="transition-link">Accueil</a></li>
                     <li><a href="entreprise.html" class="transition-link">Entreprise</a></li>
@@ -32,6 +32,7 @@
 
     <div class="container section-padding">
         <a href="missions.html" class="transition-link" style="color:#666; text-decoration:none; font-weight:600;"><i class="fas fa-arrow-left"></i> Retour aux missions</a>
+        
         <div class="mission-detail" style="margin-top: 30px;">
             
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
@@ -69,18 +70,33 @@
 
             <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
 
-            <h3>Réalisations</h3>
-            <p><strong>1. Installation Hardware :</strong> Récupération et rackage d'un serveur <strong>Dell R730</strong> dans une baie informatique à Orange Atalante. Gestion du câblage réseau et de l'alimentation redondée.</p>
-            
-            <img src="img/a27df107384f6855f4a2487881f90117.webp" alt="Serveur Dell R730 installé en baie" class="content-img">
+            <h3>La Solution : Un Serveur "Bare Metal" Dell R730</h3>
+            <p>Pour lever cette contrainte matérielle, j'ai récupéré et remis en état un serveur d'entreprise. L'objectif : disposer de ma propre plateforme de calcul pour héberger mes labs Docker sans limite de ressources.</p>
 
-            <p><strong>2. Administration Système :</strong> Installation de l'OS <strong>Ubuntu Server 20.04</strong> pour sa stabilité et sa compatibilité native avec Docker.</p>
-            
-            <p><strong>3. Sécurité & Accès :</strong> Configuration d'un accès distant via un <strong>Bastion</strong> (machine de rebond SSH) pour administrer le serveur sans connexion directe au réseau de management.</p>
-            <div style="background: #2d2d2d; color: #fff; padding: 20px; border-radius: 6px; margin: 20px 0; font-family: 'Consolas', monospace;">
-                Flux SSH :<br>
-                <span style="color:var(--primary)">Poste Local (PuTTY)</span> ➔ <span style="color:#aaa">Bastion (10.192.x.x)</span> ➔ <span style="color:#fff">Serveur DELL (Réseau Privé)</span>
+            <div style="display:flex; gap:20px; margin-top:20px; flex-wrap:wrap;">
+                <div style="flex:1; min-width:300px;">
+                    <img src="img/a27df107384f6855f4a2487881f90117.webp" alt="Serveur Dell R730 installé en baie" class="content-img" style="margin:0;">
+                    <p style="text-align:center; font-size:0.8rem; color:#888; margin-top:5px;"><em>Preuve : Le serveur Dell R730 une fois racké et câblé par mes soins.</em></p>
+                </div>
+                <div style="flex:1;">
+                    <h4>Actions Techniques Réalisées :</h4>
+                    <ul style="list-style-type:circle; margin-left:20px; line-height:1.8;">
+                        <li><strong>Installation Physique :</strong> Rackage dans la baie, câblage réseau uplink (10 Gbps) et alimentation redondée.</li>
+                        <li><strong>OS & Système :</strong> Installation d'<strong>Ubuntu Server 20.04 LTS</strong>. J'ai privilégié un OS Linux natif (pas de virtualisation type ESXi) pour maximiser les performances de Docker.</li>
+                        <li><strong>Sécurisation :</strong> Configuration d'un accès distant via <strong>Bastion SSH</strong> pour administrer le serveur depuis mon poste de travail en toute sécurité.</li>
+                    </ul>
+                </div>
             </div>
+
+            <h3 style="margin-top:30px;">Preuve de fonctionnement</h3>
+            <p>Une fois le serveur opérationnel, j'ai vérifié les ressources disponibles. Cette étape a marqué la fin des limitations matérielles et le début de la phase d'automatisation (Mission 3).</p>
+            
+            <pre style="margin-top:10px;">
+<span class="code-comment"># Connexion au serveur via le Bastion</span>
+<span class="code-variable">youenn@pc-pro</span>:~$ ssh -J bastion.orange.intra youenn@192.168.10.5
+<span class="code-variable">youenn@dell-r730</span>:~$ htop
+<span class="code-comment"># Résultat : 128 Go de RAM disponibles, 32 cœurs CPU.
+# Le serveur est prêt à accueillir les topologies massives.</span></pre>
 
             <div class="reflexive-box">
                 <h3><i class="fas fa-microscope"></i> Analyse Réflexive & Autoévaluation</h3>
@@ -157,19 +173,10 @@
                     <strong><i class="fas fa-star" style="color:#ffc107;"></i> Impact sur mon Parcours :</strong> Cette mission m'a révélé que je prends plaisir au travail "bas niveau" (hardware, OS, réseau physique). Elle a renforcé ma conviction que le métier d'ingénieur réseau nécessite une vision complète de la stack (du câble au logiciel).
                 </p>
             </div>
+
         </div>
     </div>
 
     <footer><div class="container"><p>&copy; 2026 Youenn Meillarec</p></div></footer>
-    <script>
-        document.querySelectorAll('.transition-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                let target = this.href;
-                document.body.classList.add('fade-out');
-                setTimeout(() => window.location.href = target, 500);
-            });
-        });
-    </script>
 </body>
 </html>
