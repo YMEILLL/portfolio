@@ -24,6 +24,7 @@
                             <li><a href="mission-server.html" class="transition-link">3. Serveur pour Containerlab</a></li>
                         </ul>
                     </li>
+                    <li><a href="glossaire.html" class="transition-link">Glossaire</a></li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
                 </ul>
             </nav>
@@ -39,14 +40,14 @@
                 <div>
                     <h2>Serveur Dédié pour Containerlab : <span class="title-sub">Déploiement & Sécurisation</span></h2>
                     <h3>Contexte & Problématique</h3>
-                    <p><strong>Le problème de départ :</strong> Après avoir découvert Containerlab (mission 2), j'ai commencé à tester l'outil sur une VM sur mon PC personnel (16 Go RAM, processeur i5). Ça marchait bien pour des topologies simples (2-3 routeurs), mais dès que je montais à 5-6 routeurs Docker, ma machine s'effondrait. Les routeurs virtuels consomment chacun 2-3 Go de RAM, et mon PC crashait régulièrement.</p>
+                    <p><strong>Le problème de départ :</strong> Après avoir découvert <a href="glossaire.html#containerlab" class="glossary-link">Containerlab</a> (mission 2), j'ai commencé à tester l'outil sur une VM sur mon PC personnel (16 Go RAM, processeur i5). Ça marchait bien pour des topologies simples (2-3 <a href="glossaire.html#conteneur" class="glossary-link">routeurs Docker</a>), mais dès que je montais à 5-6 <a href="glossaire.html#conteneur" class="glossary-link">routeurs Docker</a>, ma machine s'effondrait. Les routeurs virtuels consomment chacun 2-3 Go de RAM, et mon PC crashait régulièrement.</p>
                     
-                    <p style="margin-top:10px;"><strong>Pourquoi c'était bloquant :</strong> Impossible de tester des scénarios réalistes (5 routeurs avec BGP, iperf pour les tests de bande passante) sans infrastructure stable. Mon équipe avait besoin d'un environnement de test permanent, accessible à distance, qui ne dépende pas de mon poste.</p>
+                    <p style="margin-top:10px;"><strong>Pourquoi c'était bloquant :</strong> Impossible de tester des scénarios réalistes (5 routeurs avec <a href="glossaire.html#bgp" class="glossary-link">BGP</a>, <a href="glossaire.html#iperf" class="glossary-link">iperf</a> pour les tests de bande passante) sans infrastructure stable. Mon équipe avait besoin d'un environnement de test permanent, accessible à distance, qui ne dépende pas de mon poste.</p>
 
-                    <p style="margin-top:10px;"><strong>La solution proposée :</strong> Déployer un serveur physique dédié dans le datacenter d'Orange Atalante. Ce serveur, un <strong>Dell PowerEdge R730</strong> (56 Go RAM, 2x Xeon E5), pouvait héberger 10-15 routeurs simultanément. L'objectif était de mettre en production cette machine : installation matérielle, OS, sécurisation des accès, et migration de mes topologies Containerlab dessus.</p>
+                    <p style="margin-top:10px;"><strong>La solution proposée :</strong> Déployer un serveur physique dédié dans le <a href="glossaire.html#datacenter" class="glossary-link">datacenter</a> d'Orange Atalante. Ce serveur, un <strong><a href="glossaire.html#dell-poweredge" class="glossary-link">Dell PowerEdge R730</a></strong> (56 Go RAM, 2x Xeon E5), pouvait héberger 10-15 routeurs simultanément. L'objectif était de mettre en production cette machine : installation matérielle, OS, sécurisation des accès, et migration de mes topologies <a href="glossaire.html#containerlab" class="glossary-link">Containerlab</a> dessus.</p>
 
                     <div style="background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin-top: 15px; border-radius: 4px;">
-                        <strong><i class="fas fa-lightbulb" style="color:#ffc107;"></i> Enjeu :</strong> C'était ma première expérience en datacenter réel — pas un lab étudiant, mais un environnement de production avec contraintes d'accès, procédures de sécurité et responsabilité opérationnelle. Ce serveur allait devenir la plateforme de test de toute l'équipe.
+                        <strong><i class="fas fa-lightbulb" style="color:#ffc107;"></i> Enjeu :</strong> C'était ma première expérience en <a href="glossaire.html#datacenter" class="glossary-link">datacenter</a> réel — pas un lab étudiant, mais un environnement de production avec contraintes d'accès, procédures de sécurité et responsabilité opérationnelle. Ce serveur allait devenir la plateforme de test de toute l'équipe.
                     </div>
                 </div>
 
@@ -59,10 +60,10 @@
                     <div class="card" style="padding: 1rem; background: #f9f9f9; border-top: none;">
                         <h4 style="margin-bottom:10px;">Technologies</h4>
                         <ul style="margin-left:20px; list-style-type: square;">
-                            <li>Ubuntu Server 20.04</li>
-                            <li>SSH / Bastion</li>
-                            <li>Docker Engine</li>
-                            <li>Datacenter Management</li>
+                            <li><a href="glossaire.html#ubuntu-server" class="glossary-link">Ubuntu Server</a> 20.04</li>
+                            <li><a href="glossaire.html#ssh" class="glossary-link">SSH</a> / <a href="glossaire.html#bastion" class="glossary-link">Bastion</a></li>
+                            <li><a href="glossaire.html#docker" class="glossary-link">Docker</a> Engine</li>
+                            <li><a href="glossaire.html#datacenter" class="glossary-link">Datacenter</a> Management</li>
                         </ul>
                     </div>
                 </div>
@@ -70,8 +71,8 @@
 
             <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
 
-            <h3>La Solution : Un Serveur "Bare Metal" Dell R730</h3>
-            <p>Pour lever cette contrainte matérielle, j'ai récupéré et remis en état un serveur d'entreprise. L'objectif : disposer de ma propre plateforme de calcul pour héberger mes labs Docker sans limite de ressources.</p>
+            <h3>La Solution : Un Serveur "<a href="glossaire.html#bare-metal" class="glossary-link">Bare Metal</a>" <a href="glossaire.html#dell-poweredge" class="glossary-link">Dell R730</a></h3>
+            <p>Pour lever cette contrainte matérielle, j'ai récupéré et remis en état un serveur d'entreprise. L'objectif : disposer de ma propre plateforme de calcul pour héberger mes labs <a href="glossaire.html#docker" class="glossary-link">Docker</a> sans limite de ressources.</p>
 
             <div style="display:flex; gap:20px; margin-top:20px; flex-wrap:wrap;">
                 <div style="flex:1; min-width:300px;">
@@ -82,8 +83,8 @@
                     <h4>Actions Techniques Réalisées :</h4>
                     <ul style="list-style-type:circle; margin-left:20px; line-height:1.8;">
                         <li><strong>Installation Physique :</strong> Rackage dans la baie, câblage réseau uplink (10 Gbps) et alimentation redondée.</li>
-                        <li><strong>OS & Système :</strong> Installation d'<strong>Ubuntu Server 20.04 LTS</strong>. J'ai privilégié un OS Linux natif (pas de virtualisation type ESXi) pour maximiser les performances de Docker.</li>
-                        <li><strong>Sécurisation :</strong> Configuration d'un accès distant via <strong>Bastion SSH</strong> pour administrer le serveur depuis mon poste de travail en toute sécurité.</li>
+                        <li><strong>OS & Système :</strong> Installation d'<strong><a href="glossaire.html#ubuntu-server" class="glossary-link">Ubuntu Server</a> 20.04 LTS</strong>. J'ai privilégié un OS <a href="glossaire.html#linux" class="glossary-link">Linux</a> natif (pas de virtualisation type ESXi) pour maximiser les performances de <a href="glossaire.html#docker" class="glossary-link">Docker</a>.</li>
+                        <li><strong>Sécurisation :</strong> Configuration d'un accès distant via <strong><a href="glossaire.html#bastion" class="glossary-link">Bastion SSH</a></strong> pour administrer le serveur depuis mon poste de travail en toute sécurité.</li>
                     </ul>
                 </div>
             </div>
@@ -128,7 +129,7 @@
 
                 <h4 style="margin-top: 20px; color: #27ae60;"><i class="fas fa-lightbulb"></i> Apprentissages Clés & Progression</h4>
                 <ul style="margin-left:20px; list-style-type:none; margin-top:10px;">
-                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Technique :</strong> Découverte du hardware serveur (Dell iDRAC, contrôleurs RAID, alimentation redondée). Maîtrise de l'administration Linux en ligne de commande (SSH, utilisateurs, permissions).</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Technique :</strong> Découverte du hardware serveur (Dell iDRAC, contrôleurs RAID, alimentation redondée). Maîtrise de l'administration <a href="glossaire.html#linux" class="glossary-link">Linux</a> en ligne de commande (SSH, utilisateurs, permissions).</li>
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Sécurité :</strong> Compréhension de l'architecture Bastion (DMZ, isolation réseau) et de son rôle dans la sécurité opérationnelle. Configuration de l'authentification par clés SSH.</li>
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Méthode :</strong> Importance de la documentation (position en baie, adresse IP, procédure d'accès) pour le travail d'équipe et la maintenance future.</li>
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Soft Skills :</strong> Travail collaboratif efficace. Humilité pour demander de l'aide sur des aspects physiques que je ne maîtrisais pas. Adaptabilité face à un environnement nouveau (datacenter).</li>
@@ -158,15 +159,15 @@
                     </tr>
                 </table>
                 <p style="margin-top:15px; padding:15px; background:#e8f4fd; border-left:4px solid #2980b9; border-radius:4px;">
-                    <strong>Autoévaluation :</strong> AC21.03 est maîtrisé : je suis autonome sur l'installation et la configuration de serveurs Linux. AC22.02 est maîtrisé : je comprends l'architecture Bastion et sais mettre en œuvre une connexion sécurisée. AC21.06 est validé par le travail collaboratif réussi avec M. Tran.
+                    <strong>Autoévaluation :</strong> AC21.03 est maîtrisé : je suis autonome sur l'installation et la configuration de serveurs <a href="glossaire.html#linux" class="glossary-link">Linux</a>. AC22.02 est maîtrisé : je comprends l'architecture Bastion et sais mettre en œuvre une connexion sécurisée. AC21.06 est validé par le travail collaboratif réussi avec M. Tran.
                 </p>
 
                 <h4 style="margin-top: 20px; color: #8e44ad;"><i class="fas fa-recycle"></i> Transférabilité & Réutilisation des Acquis</h4>
                 <p>Cette mission m'a donné des compétences transversales essentielles :</p>
                 <ul style="margin-left:20px; margin-top:10px;">
                     <li><strong>Dans d'autres missions :</strong> Le serveur Dell est devenu la plateforme d'hébergement de Containerlab (mission 2). Les compétences SSH sont utilisées quotidiennement.</li>
-                    <li><strong>À l'IUT :</strong> J'ai pu aider mes camarades sur les TPs d'administration Linux (gestion des utilisateurs, permissions, services systemd).</li>
-                    <li><strong>Situations futures :</strong> L'administration de serveurs Linux est une compétence universelle en infrastructure IT. L'architecture Bastion est un standard de sécurité que je retrouverai dans tous les environnements professionnels.</li>
+                    <li><strong>À l'IUT :</strong> J'ai pu aider mes camarades sur les TPs d'administration <a href="glossaire.html#linux" class="glossary-link">Linux</a> (gestion des utilisateurs, permissions, services systemd).</li>
+                    <li><strong>Situations futures :</strong> L'administration de serveurs <a href="glossaire.html#linux" class="glossary-link">Linux</a> est une compétence universelle en infrastructure IT. L'architecture Bastion est un standard de sécurité que je retrouverai dans tous les environnements professionnels.</li>
                 </ul>
 
                 <p style="margin-top:20px; background:#fff3cd; padding:15px; border-left:4px solid #ffc107; border-radius:4px;">

@@ -24,6 +24,7 @@
                             <li><a href="mission-server.html" class="transition-link">3. Serveur pour Containerlab</a></li>
                         </ul>
                     </li>
+                    <li><a href="glossaire.html" class="transition-link">Glossaire</a></li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
                 </ul>
             </nav>
@@ -39,8 +40,8 @@
                 <div>
                     <h2>Simulation Réseaux Avancée sur EVE-NG</h2>
                     <h3>Contexte & Objectifs</h3>
-                    <p><strong>Contexte :</strong> Ma première mission importante consistait à maîtriser l'outil d'émulation EVE-NG pour concevoir des topologies de test réalistes simulant un cœur de réseau opérateur.</p>
-                    <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 routeurs (Cisco et Juniper), résiliente pour supporter les pannes tout en protégeant les flux clients.</p>
+                    <p><strong>Contexte :</strong> Ma première mission importante consistait à maîtriser l'outil d'émulation <a href="glossaire.html#eve-ng" class="glossary-link">EVE-NG</a> pour concevoir des <a href="glossaire.html#topologie" class="glossary-link">topologies</a> de test réalistes simulant un cœur de réseau opérateur.</p>
+                    <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 <a href="glossaire.html#routeur" class="glossary-link">routeurs</a> (Cisco et Juniper), résiliente pour supporter les pannes tout en protégeant les flux clients.</p>
                 </div>
                 <div class="sidebar-wrapper">
                     <div class="card" style="padding: 1.5rem; background: #fff; text-align: center; margin-bottom: 1.5rem;">
@@ -50,8 +51,8 @@
                         <h4 style="margin-bottom:10px;">Environnement Technique</h4>
                         <ul style="margin-left:20px; list-style-type: square; font-size: 0.9rem;">
                             <li><strong>Infrastructure :</strong> Serveur EVE-NG partagé</li>
-                            <li><strong>Protocole de routage :</strong> IS-IS (Link-State)</li>
-                            <li><strong>Outils :</strong> Wireshark, CLI Cisco/Juniper</li>
+                            <li><strong>Protocole de routage :</strong> <a href="glossaire.html#isis" class="glossary-link">IS-IS</a> (<a href="glossaire.html#link-state" class="glossary-link">Link-State</a>)</li>
+                            <li><strong>Outils :</strong> <a href="glossaire.html#wireshark" class="glossary-link">Wireshark</a>, CLI Cisco/Juniper</li>
                             <li><strong>Limite :</strong> Configuration 100% manuelle.</li>
                         </ul>
                     </div>
@@ -62,17 +63,17 @@
             
             <h3>Réalisations Techniques</h3>
             <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
-                <li><strong>Routage Statique & Résilience :</strong> Configuration manuelle des routes et simulation de pannes (coupure d'interface) pour valider le basculement via des routes statiques flottantes.</li>
+                <li><strong><a href="glossaire.html#routage-statique" class="glossary-link">Routage Statique</a> & Résilience :</strong> Configuration manuelle des routes et simulation de pannes (coupure d'interface) pour valider le basculement via des routes statiques flottantes.</li>
                 <li><strong>Segmentation VRF :</strong> Implémentation du <em>Virtual Routing and Forwarding</em> pour créer des tables de routage isolées sur un même équipement physique.</li>
             </ul>
 
             <div style="background:#e3f2fd; padding:20px; border-left:4px solid #2196f3; border-radius:8px; margin:20px 0;">
-                <h4 style="margin-bottom:10px; color:#1976d2;"><i class="fas fa-info-circle"></i> C'est quoi IS-IS ? (Explication rapide)</h4>
-                <p style="line-height:1.6;">IS-IS est un protocole de routage. Imagine une entreprise avec plusieurs bureaux reliés par des câbles. Chaque bureau (routeur) doit savoir comment envoyer un message à un autre bureau. IS-IS, c'est le "système de GPS" des routeurs : ils se disent mutuellement "je suis connecté à toi, et voici les autres routeurs que je connais". Du coup, chacun construit une carte mentale du réseau et sait où envoyer le trafic. C'est plus automatique et plus fiable que de tout configurer à la main, et dynamique en fonction de la vie du réseau.</p>
+                <h4 style="margin-bottom:10px; color:#1976d2;"><i class="fas fa-info-circle"></i> C'est quoi <a href="glossaire.html#isis" class="glossary-link">IS-IS</a> ? (Explication rapide)</h4>
+                <p style="line-height:1.6;"><a href="glossaire.html#isis" class="glossary-link">IS-IS</a> est un protocole de <a href="glossaire.html#routage-dynamique" class="glossary-link">routage dynamique</a>. Imagine une entreprise avec plusieurs bureaux reliés par des câbles. Chaque bureau (<a href="glossaire.html#routeur" class="glossary-link">routeur</a>) doit savoir comment envoyer un message à un autre bureau. IS-IS, c'est le "système de GPS" des routeurs : ils se disent mutuellement "je suis connecté à toi, et voici les autres routeurs que je connais". Du coup, chacun construit une carte mentale du réseau et sait où envoyer le trafic. C'est plus automatique et plus fiable que de tout configurer à la main, et dynamique en fonction de la vie du réseau.</p>
             </div>
 
             <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
-                <li><strong>Routage Dynamique IS-IS :</strong> Migration vers le protocole IS-IS (Link-State) pour automatiser la propagation des routes et la convergence du réseau.</li>
+                <li><strong><a href="glossaire.html#routage-dynamique" class="glossary-link">Routage Dynamique</a> <a href="glossaire.html#isis" class="glossary-link">IS-IS</a> :</strong> Migration vers le protocole <a href="glossaire.html#isis" class="glossary-link">IS-IS</a> (<a href="glossaire.html#link-state" class="glossary-link">Link-State</a>) pour automatiser la propagation des routes et la convergence du réseau.</li>
             </ul>
 
             <div style="text-align:center; margin:40px 0;">

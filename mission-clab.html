@@ -24,6 +24,7 @@
                             <li><a href="mission-server.html" class="transition-link">3. Serveur pour Containerlab</a></li>
                         </ul>
                     </li>
+                    <li><a href="glossaire.html" class="transition-link">Glossaire</a></li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
                 </ul>
             </nav>
@@ -39,9 +40,9 @@
             <div class="grid-3" style="grid-template-columns: 2fr 1fr; margin-bottom: 2rem;">
                 <div>
                     <h3>Pourquoi ce projet ?</h3>
-                    <p>Après la mission EVE-NG, j'avais besoin d'aller plus loin. EVE-NG était parfait pour apprendre les protocoles, mais il avait des limites : tout se fait via une interface graphique (clic droit, drag & drop), impossible à versionner sur Git, et difficile à reproduire. De plus, pour tester EVE-NG, l'équipe m'avait prêté un serveur, mais je voulais pouvoir travailler localement sur ma machine.</p>
-                    <p style="margin-top:10px;">L'idée : créer des topologies réseaux complètes en <strong>Infrastructure as Code</strong> (c'est-à-dire définir mon réseau dans des fichiers texte, comme du code). J'ai commencé à tester <strong>Containerlab</strong> sur une VM sur mon PC. Comme ça, je pouvais sauvegarder ma topologie et la modifier facilement.</p>
-                    <p style="margin-top:10px;"><strong>Le problème :</strong> Ma machine (16 Go RAM) s'est vite retrouvée saturée quand je lançais 4-5 routeurs Docker. C'est ce qui a motivé plus tard le déploiement d'un serveur dédié (mission 3).</p>
+                    <p>Après la mission EVE-NG, j'avais besoin d'aller plus loin. EVE-NG était parfait pour apprendre les protocoles, mais il avait des limites : tout se fait via une interface graphique (clic droit, drag & drop), impossible à versionner sur <a href="glossaire.html#git" class="glossary-link">Git</a>, et difficile à reproduire. De plus, pour tester EVE-NG, l'équipe m'avait prêté un serveur, mais je voulais pouvoir travailler localement sur ma machine.</p>
+                    <p style="margin-top:10px;">L'idée : créer des topologies réseaux complètes en <strong><a href="glossaire.html#infrastructure-as-code" class="glossary-link">Infrastructure as Code</a></strong> (c'est-à-dire définir mon réseau dans des fichiers texte, comme du code). J'ai commencé à tester <strong><a href="glossaire.html#containerlab" class="glossary-link">Containerlab</a></strong> sur une VM sur mon PC. Comme ça, je pouvais sauvegarder ma topologie et la modifier facilement.</p>
+                    <p style="margin-top:10px;"><strong>Le problème :</strong> Ma machine (16 Go RAM) s'est vite retrouvée saturée quand je lançais 4-5 <a href="glossaire.html#conteneur" class="glossary-link">routeurs Docker</a>. C'est ce qui a motivé plus tard le déploiement d'un serveur dédié (mission 3).</p>
                 </div>
                 <div class="sidebar-wrapper">
                     <a href="https://containerlab.dev/" target="_blank" class="sidebar-logo-container dark">
@@ -53,8 +54,8 @@
             <hr style="border:0; border-top:1px solid #eee; margin:30px 0;">
 
             <h3><i class="fas fa-wrench" style="color:var(--primary); margin-right:10px;"></i> Comment j'ai commencé</h3>
-            <p>D'abord, j'ai installé Docker et Containerlab sur ma VM locale. L'avantage de Docker, c'est que les routeurs n'utilisent que quelques centaines de Mo chacun au lieu de plusieurs Go avec EVE-NG. Ça veut dire que je peux lancer 5-10 routeurs sans surcharger autant ma machine.</p>
-            <p style="margin-top:10px;">J'ai commencé simple : 3 routeurs Juniper en IS-IS pour tester que tout marchait (IS-IS = protocole que j'avais déjà appris avec EVE-NG dans la mission 1). Une fois que j'ai maîtrisé l'outil, je suis passé à quelque chose de plus complexe.</p>
+            <p>D'abord, j'ai installé <a href="glossaire.html#docker" class="glossary-link">Docker</a> et <a href="glossaire.html#containerlab" class="glossary-link">Containerlab</a> sur ma VM locale. L'avantage de <a href="glossaire.html#docker" class="glossary-link">Docker</a>, c'est que les routeurs n'utilisent que quelques centaines de Mo chacun au lieu de plusieurs Go avec EVE-NG. Ça veut dire que je peux lancer 5-10 routeurs sans surcharger autant ma machine.</p>
+            <p style="margin-top:10px;">J'ai commencé simple : 3 routeurs Juniper en <a href="glossaire.html#isis" class="glossary-link">IS-IS</a> pour tester que tout marchait (<a href="glossaire.html#isis" class="glossary-link">IS-IS</a> = protocole que j'avais déjà appris avec EVE-NG dans la mission 1). Une fois que j'ai maîtrisé l'outil, je suis passé à quelque chose de plus complexe.</p>
 
             <h3 style="margin-top:30px;"><i class="fas fa-project-diagram" style="color:var(--primary); margin-right:10px;"></i> La topologie finale : 5 routeurs + trafic réel</h3>
             <p>J'ai créé une topologie qui simule un réseau d'opérateur internet. Voici comment ça marche :</p>
@@ -64,7 +65,7 @@
                 <ul style="margin-left:20px; margin-top:10px;">
                     <li><strong>CORE :</strong> Routeur central qui fait le lien entre tout. Il joue un rôle spécial en BGP : il coordonne les routes (ça s'appelle "Route Reflector").</li>
                     <li><strong>EDGE1 & EDGE2 :</strong> Routeurs qui connectent le cœur du réseau aux zones de distribution (DL et DR).</li>
-                    <li><strong>DL & DR :</strong> Routeurs qui se connectent aux clients finaux (les deux hôtes Linux iperf-a et iperf-b).</li>
+                    <li><strong>DL & DR :</strong> Routeurs qui se connectent aux clients finaux (les deux hôtes <a href="glossaire.html#linux" class="glossary-link">Linux</a> iperf-a et iperf-b).</li>
                 </ul>
             </div>
 
@@ -75,19 +76,19 @@
 
             <p><strong>En termes de protocoles :</strong></p>
             <ul style="margin-left:20px; list-style-type:circle; margin-bottom:20px;">
-                <li><strong>IS-IS :</strong> Les 5 routeurs se parlent pour savoir qui est connecté à qui (la base du réseau).</li>
-                <li><strong>BGP :</strong> Les routeurs aux extrémités (DL et DR) disent au CORE "j'ai des clients à nourrir" (10.0.0.0/24 pour DL, 10.0.1.0/24 pour DR). Le CORE redistribue cette info.</li>
-                <li><strong>Iperf :</strong> Deux conteneurs Linux qui se pingent et transfèrent des données pour tester que le réseau fonctionne vraiment.</li>
+                <li><strong><a href="glossaire.html#isis" class="glossary-link">IS-IS</a> :</strong> Les 5 routeurs se parlent pour savoir qui est connecté à qui (la base du réseau).</li>
+                <li><strong><a href="glossaire.html#bgp" class="glossary-link">BGP</a> :</strong> Les routeurs aux extrémités (DL et DR) disent au CORE "j'ai des clients à nourrir" (10.0.0.0/24 pour DL, 10.0.1.0/24 pour DR). Le CORE redistribue cette info.</li>
+                <li><strong><a href="glossaire.html#iperf" class="glossary-link">Iperf</a> :</strong> Deux <a href="glossaire.html#conteneur" class="glossary-link">conteneurs</a> <a href="glossaire.html#linux" class="glossary-link">Linux</a> qui se ping et transfèrent des données pour tester que le réseau fonctionne vraiment.</li>
             </ul>
 
             <h3 style="margin-top:30px;"><i class="fas fa-code" style="color:var(--primary); margin-right:10px;"></i> L'automatisation : le vrai travail</h3>
-            <p>C'est bien d'avoir une topologie, mais encore faut-il la déployer correctement à chaque fois. J'ai écrit deux scripts Bash :</p>
+            <p>C'est bien d'avoir une topologie, mais encore faut-il la déployer correctement à chaque fois. J'ai écrit deux scripts <a href="glossaire.html#bash" class="glossary-link">Bash</a> :</p>
 
             <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h4><code>run_lab.sh</code> : Le déploiement complet</h4>
                 <p>Ce script fait plusieurs choses :</p>
                 <ol style="margin-left:20px;">
-                    <li>Lance Docker pour démarrer les 5 routeurs et les 2 hôtes Linux</li>
+                    <li>Lance Docker pour démarrer les 5 routeurs et les 2 hôtes <a href="glossaire.html#linux" class="glossary-link">Linux</a></li>
                     <li>Configure les adresses IP sur les hôtes iperf</li>
                     <li>Attend que le réseau converge (IS-IS + BGP se stabilisent) — ça peut prendre 2-3 minutes</li>
                     <li>Teste la connectivité avec un ping</li>
@@ -97,10 +98,10 @@
 
             <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h4><code>run-tests.sh</code> : Les tests sans redéployer</h4>
-                <p>Ce script suppose que le lab est déjà lancé. Il juste teste de nouveau la connectivité et les performances. Utile pour refaire des tests sans perdre 3 minutes à redémarrer.</p>
+                <p>Ce script suppose que le lab est déjà lancé. Il test juste de nouveau la connectivité et les performances. Utile pour refaire des tests sans perdre 3 minutes à redémarrer.</p>
             </div>
 
-            <p style="margin-top:20px;"><strong>Le défi :</strong> Les routeurs prennent du temps à converger. Mon script attendait trop vite avant le réseau ne soit prêt. J'ai mis en place une boucle qui teste toutes les 5 secondes jusqu'à ce que le ping réussisse (avec un timeout de 4 minutes max).</p>
+            <p style="margin-top:20px;"><strong>Le défi :</strong> Les routeurs prennent du temps à converger. Mon script avancait trop vite avant les routeurs virtualisée ne soit prêt. J'ai mis en place une boucle qui teste toutes les 5 secondes jusqu'à ce que le ping réussisse (avec un timeout de 4 minutes max).</p>
 
             <h3 style="margin-top:30px;"><i class="fas fa-file-code" style="color:var(--primary); margin-right:10px;"></i> Le code</h3>
 
@@ -165,7 +166,7 @@
 
 
             <p style="margin-top:20px;"><strong>2. Configuration d'un routeur (DL.conf - Extrait) :</strong></p>
-            <p style="margin-bottom:10px; color:#666;">Chaque routeur a sa propre config Juniper OS. Voici comment j'ai configuré le routeur DL (distribution left) pour qu'il parle IS-IS :</p>
+            <p style="margin-bottom:10px; color:#666;">Chaque routeur a sa propre configuration Juniper OS. Voici comment j'ai configuré le routeur DL (distribution left) pour qu'il parle IS-IS :</p>
             <details class="accordion" style="border:1px solid #ddd; border-radius:8px; background:#fafafa; padding:12px 16px; margin:12px 0;">
               <summary style="cursor:pointer; font-weight:700; color:#2c3e50;"><i class="fas fa-gear" style="margin-right:6px; color:var(--primary);"></i> Configuration Juniper — DL.conf (extrait)</summary>
               <div style="padding:12px 0 0 0;">
@@ -328,7 +329,7 @@ default via 172.20.20.1 dev eth0
     <span class="code-variable">sleep</span> <span class="code-number">5</span>
     <span class="code-variable">t</span>=<span class="code-variable">$((t+5))</span>
   <span class="code-keyword">done</span>
-  <span class="code-variable">log</span> <span class="code-string">"✗ ERREUR : Convergence échouée après 4 minutes. Vérifiez les configs IS-IS/BGP."</span>
+  <span class="code-variable">log</span> <span class="code-string">"✗ ERREUR : Convergence échouée après 4 minutes. Vérifiez les configurations IS-IS/BGP."</span>
   <span class="code-keyword">return</span> <span class="code-number">1</span>
 }
 
@@ -347,7 +348,7 @@ default via 172.20.20.1 dev eth0
               </div>
             </details>
 
-            <p style="margin-top:15px; color:#666;"><strong>Le défi principal :</strong> Les routeurs Juniper mettent 1-3 minutes pour établir les adjacences IS-IS et converger BGP. Mon script teste chaque 5 secondes si le ping fonctionne. S'il timeout après 4 minutes, il affiche un message d'erreur utile.</p>
+            <p style="margin-top:15px; color:#666;"><strong>Le défi principal :</strong> Les routeurs Juniper mettent 1-3 minutes pour établir les adjacences IS-IS et converger BGP. Mon script teste chaque 5 secondes si le ping fonctionne. Si après 4 minutes d'échec de connectivité (timeout), il affiche un message d'erreur utile.</p>
 
             <div class="reflexive-box">
                 <h3><i class="fas fa-microscope"></i> Auto-analyse & Progression</h3>
@@ -396,8 +397,8 @@ default via 172.20.20.1 dev eth0
                     <li><strong>Conteneurisation avancée :</strong> Docker namespaces, overlayfs, comment les routeurs virtualisés isolent les interfaces réseau</li>
                     <li><strong>Automatisation robuste :</strong> Gérer les timeouts, les erreurs silencieuses, et donner du feedback clair (logs + exit codes)</li>
                     <li><strong>Débogage réseau :</strong> Utiliser <code>docker exec</code> pour accéder aux espaces réseau, comprendre les adjacences IS-IS avec <code>show isis adjacency</code></li>
-                    <li><strong>Infrastructure as Code (IaC) :</strong> Le YAML n'est pas juste du config — c'est du code versionnné qui documenta et reproduit l'infrastructure</li>
-                    <li><strong>Travail en équipe :</strong> Documenter clairement pour que M. Tan Tran puisse redéployer sans moi après mon départ</li>
+                    <li><strong>Infrastructure as Code (IaC) :</strong> Le YAML n'est pas qu'une simple configuration — c'est du code qu'on versionne pour documenter et reproduire l'infrastructure</li>
+                    <li><strong>Travail en équipe :</strong> Documenter clairement pour que toute les personnes de l'équipe puisse redéployer sans moi après mon départ</li>
                 </ul>
 
                 <h4 style="margin-top: 20px; color: #0066cc;">Transversalité :</h4>

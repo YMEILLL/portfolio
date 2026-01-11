@@ -69,6 +69,53 @@ h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 80px; he
 
 .title-sub { font-size: 0.7em; color: #6b6b6b; font-weight: 600; }
 
+.glossary-link { color: #0066cc; text-decoration: underline; cursor: pointer; }
+.glossary-link:hover { color: var(--primary); }
+
+.glossary-term { margin-bottom: 2rem; }
+.glossary-term h4 { color: var(--dark); margin-bottom: 0.5rem; font-size: 1.1rem; }
+.glossary-term p { color: #555; line-height: 1.7; }
+
+/* Accordions */
+.accordion-section { margin-bottom: 1.5rem; }
+.accordion-header { 
+    background: linear-gradient(135deg, var(--primary), #ff9800);
+    color: white; 
+    padding: 1rem 1.5rem; 
+    cursor: pointer; 
+    border-radius: 4px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+.accordion-header:hover { 
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(255, 121, 0, 0.3);
+}
+.accordion-header i { 
+    transition: transform 0.3s ease; 
+}
+.accordion-header.open i { 
+    transform: rotate(180deg); 
+}
+.accordion-content { 
+    max-height: 0; 
+    overflow: hidden; 
+    transition: max-height 0.3s ease;
+    background: #f9f9f9;
+    border-left: 5px solid var(--primary);
+}
+.accordion-content.open { 
+    max-height: 10000px;
+    padding: 2rem;
+}
+.accordion-content.open { 
+    display: block;
+}
+
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
 .card { background: var(--white); border-radius: 8px; box-shadow: var(--shadow-soft); overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); border-top: 4px solid transparent; }
 .card:hover { transform: translateY(-8px); border-top: 4px solid var(--primary); }
