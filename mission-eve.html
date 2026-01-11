@@ -21,7 +21,7 @@
                             <li><a href="missions.html" class="transition-link">Toutes les missions</a></li>
                             <li><a href="mission-eve.html" class="transition-link">1. EVE-NG & Routage</a></li>
                             <li><a href="mission-clab.html" class="transition-link">2. Containerlab (Auto)</a></li>
-                            <li><a href="mission-server.html" class="transition-link">3. Serveur & Système</a></li>
+                            <li><a href="mission-server.html" class="transition-link">3. Serveur pour Containerlab</a></li>
                         </ul>
                     </li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
@@ -39,8 +39,8 @@
                 <div>
                     <h2>Simulation Réseaux Avancée sur EVE-NG</h2>
                     <h3>Contexte & Objectifs</h3>
-                    <p><strong>Contexte :</strong> Ma première mission d'envergure consistait à maîtriser l'outil d'émulation EVE-NG pour concevoir des topologies de test réalistes simulant un cœur de réseau opérateur.</p>
-                    <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 routeurs (Cisco/Juniper) capable de supporter des pannes et d'isoler des flux clients.</p>
+                    <p><strong>Contexte :</strong> Ma première mission importante consistait à maîtriser l'outil d'émulation EVE-NG pour concevoir des topologies de test réalistes simulant un cœur de réseau opérateur.</p>
+                    <p><strong>Objectif :</strong> Créer une architecture interconnectant 6 routeurs (Cisco et Juniper), résiliente pour supporter les pannes tout en protégeant les flux clients.</p>
                 </div>
                 <div class="sidebar-wrapper">
                     <div class="card" style="padding: 1.5rem; background: #fff; text-align: center; margin-bottom: 1.5rem;">
@@ -50,7 +50,7 @@
                         <h4 style="margin-bottom:10px;">Environnement Technique</h4>
                         <ul style="margin-left:20px; list-style-type: square; font-size: 0.9rem;">
                             <li><strong>Infrastructure :</strong> Serveur EVE-NG partagé</li>
-                            <li><strong>Protocole :</strong> IS-IS (Link-State)</li>
+                            <li><strong>Protocole de routage :</strong> IS-IS (Link-State)</li>
                             <li><strong>Outils :</strong> Wireshark, CLI Cisco/Juniper</li>
                             <li><strong>Limite :</strong> Configuration 100% manuelle.</li>
                         </ul>
@@ -62,13 +62,13 @@
             
             <h3>Réalisations Techniques</h3>
             <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
-                <li><strong>Routage Statique & Résilience :</strong> Configuration manuelle des routes et simulation de pannes (coupure d'interface) pour valider le basculement via des routes flottantes.</li>
+                <li><strong>Routage Statique & Résilience :</strong> Configuration manuelle des routes et simulation de pannes (coupure d'interface) pour valider le basculement via des routes statiques flottantes.</li>
                 <li><strong>Segmentation VRF :</strong> Implémentation du <em>Virtual Routing and Forwarding</em> pour créer des tables de routage isolées sur un même équipement physique.</li>
             </ul>
 
             <div style="background:#e3f2fd; padding:20px; border-left:4px solid #2196f3; border-radius:8px; margin:20px 0;">
                 <h4 style="margin-bottom:10px; color:#1976d2;"><i class="fas fa-info-circle"></i> C'est quoi IS-IS ? (Explication rapide)</h4>
-                <p style="line-height:1.6;">IS-IS est un protocole de routage. Imagine une entreprise avec plusieurs bureaux reliés par des câbles. Chaque bureau (routeur) doit savoir comment envoyer un message à un autre bureau. IS-IS, c'est le "système de GPS" des routeurs : ils se disent mutuellement "je suis connecté à toi, et voici les autres routeurs que je connais". Du coup, chacun construit une carte mentale du réseau et sait où envoyer le trafic. C'est plus automatique et plus fiable que de tout configurer à la main.</p>
+                <p style="line-height:1.6;">IS-IS est un protocole de routage. Imagine une entreprise avec plusieurs bureaux reliés par des câbles. Chaque bureau (routeur) doit savoir comment envoyer un message à un autre bureau. IS-IS, c'est le "système de GPS" des routeurs : ils se disent mutuellement "je suis connecté à toi, et voici les autres routeurs que je connais". Du coup, chacun construit une carte mentale du réseau et sait où envoyer le trafic. C'est plus automatique et plus fiable que de tout configurer à la main, et dynamique en fonction de la vie du réseau.</p>
             </div>
 
             <ul style="margin-left: 20px; list-style-type: circle; margin-bottom: 20px;">
@@ -135,8 +135,8 @@ routing-options {
             </div>
 
             <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:20px;">
-                <h4 style="margin-bottom:15px;">3. Documentation Procédurale</h4>
-                <p>J'ai rédigé une procédure complète pour m'aider décrivant les étapes de création d'une topologie EVE-NG. Cette documentation inclut :</p>
+                <h4 style="margin-bottom:15px;">3. Documentation</h4>
+                <p>J'ai rédigé une procédure complète pour m'aider et qui décrit les étapes de création d'une topologie EVE-NG. Cette documentation inclut :</p>
                 <ul style="margin-left:20px; margin-top:10px;">
                     <li>Template de configuration IS-IS réutilisable</li>
                     <li>Guide de troubleshooting (commandes de diagnostic)</li>
@@ -176,7 +176,7 @@ routing-options {
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Technique :</strong> Maîtrise du protocole IS-IS (métriques, adjacences, LSP flooding). Compréhension de la différence entre routage statique et dynamique dans un contexte opérationnel.</li>
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Méthodologique :</strong> Importance de la documentation et de la rigueur dans la configuration. Une erreur de syntaxe peut bloquer toute l'architecture.</li>
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Soft Skills :</strong> Persévérance face aux blocages techniques. Capacité à rechercher dans la documentation officielle (Juniper TechLibrary, RFC).</li>
-                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Prise de Recul :</strong> Cette mission m'a fait réaliser les limites d'EVE-NG pour l'automatisation. Elle a motivé ma proposition de migration vers Containerlab (mission 3).</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Prise de Recul :</strong> Cette mission m'a fait réaliser les limites d'EVE-NG pour l'automatisation. Elle a motivé ma proposition de migration vers Containerlab (mission 2).</li>
                 </ul>
 
                 <h4 style="margin-top: 20px; color: #2980b9;"><i class="fas fa-graduation-cap"></i> Apprentissages Critiques (AC) Mobilisés & Niveau Atteint</h4>
@@ -198,16 +198,16 @@ routing-options {
                     </tr>
                 </table>
                 <p style="margin-top:15px; padding:15px; background:#e8f4fd; border-left:4px solid #2980b9; border-radius:4px;">
-                    <strong>Autoévaluation :</strong> Je considère AC21.01 comme maîtrisé car je suis capable de configurer, déboguer et optimiser IS-IS de manière autonome. AC21.05 est également maîtrisé : j'ai appliqué les concepts d'architectures multi-AS avec IS-IS en mission. Grâce à mon apprentissage à l'entreprise, je commence à bien maîtriser BGP et MPLS — j'ai notamment suivi une semaine de formation spécialisée sur MPLS animée par Guillaume, et je l'étudie régulièrement en cours à l'IUT. Ces protocoles deviennent de plus en plus clairs pour moi.
+                    <strong>Autoévaluation :</strong> Je considère AC21.01 comme maîtrisé car je suis capable de configurer, déboguer et optimiser IS-IS de manière autonome. AC21.05 est également maîtrisé : j'ai appliqué les concepts d'architectures multi-domaine avec du routage dynamique en mission. Grâce à mon apprentissage à l'entreprise, je commence à bien maîtriser BGP et MPLS — j'ai notamment suivi une semaine de formation intensive sur MPLS animée par Guillaume, et je l'étudie régulièrement en cours à l'IUT. Ces protocoles deviennent de plus en plus clairs pour moi.
 
                 </p>
 
                 <h4 style="margin-top: 20px; color: #8e44ad;"><i class="fas fa-recycle"></i> Transférabilité & Réutilisation des Acquis</h4>
                 <p>Les compétences acquises sur cette mission sont directement transférables à d'autres contextes :</p>
                 <ul style="margin-left:20px; margin-top:10px;">
-                    <li><strong>Dans d'autres missions :</strong> J'ai réutilisé mes connaissances IS-IS pour les topologies Containerlab (mission 3).</li>
+                    <li><strong>Dans d'autres missions :</strong> J'ai réutilisé mes connaissances IS-IS pour les topologies Containerlab (mission 2).</li>
                     <li><strong>À l'IUT :</strong> J'ai pu aider mes camarades sur les TPs de routage en expliquant les concepts de Link-State.</li>
-                    <li><strong>Situations futures :</strong> Ces compétences sont essentielles pour tout poste d'ingénieur réseau. La maîtrise des protocoles IGP est un prérequis universel.</li>
+                    <li><strong>Situations futures :</strong> Ces compétences sont essentielles pour tout poste d'ingénieur réseau. La maîtrise des protocoles IGP est un prérequis fondamental.</li>
                 </ul>
             </div>
 

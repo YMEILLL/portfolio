@@ -67,6 +67,8 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 h2 { font-size: 2.8rem; margin-bottom: 2.5rem; position: relative; padding-bottom: 20px; color: var(--dark); font-weight: 800; }
 h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 80px; height: 6px; background: var(--primary); border-radius: 3px; }
 
+.title-sub { font-size: 0.7em; color: #6b6b6b; font-weight: 600; }
+
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
 .card { background: var(--white); border-radius: 8px; box-shadow: var(--shadow-soft); overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); border-top: 4px solid transparent; }
 .card:hover { transform: translateY(-8px); border-top: 4px solid var(--primary); }
@@ -118,8 +120,10 @@ h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 80px; he
 .role { font-size: 1.1rem; font-weight: 600; color: var(--grey); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
 .quote { font-style: italic; color: #888; max-width: 450px; margin: 0 auto; font-weight: 300; }
 .partners-logos { display: flex; align-items: center; gap: 30px; margin-bottom: 2.5rem; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+.partners-logos a { display: inline-block; transition: transform 0.3s ease; }
+.partners-logos a:hover { transform: translateY(-5px); }
 .partners-logos img { height: 40px; width: auto; object-fit: contain; filter: none; opacity: 1; transition: all 0.4s ease; cursor: pointer; }
-.partners-logos img:hover { transform: translateY(-3px); filter: brightness(1.1); }
+.partners-logos a:hover img { filter: brightness(1.1); }
 .nav-side h2 { font-size: 1.2rem; color: #bbb; margin-bottom: 2rem; text-transform: uppercase; font-weight: 700; letter-spacing: 3px; border-left: 4px solid var(--primary); padding-left: 15px; }
 .nav-cards { display: flex; flex-direction: column; gap: 1.5rem; }
 .nav-card { display: flex; align-items: center; background: var(--white); padding: 1.8rem; border-radius: 8px; text-decoration: none; box-shadow: var(--shadow-soft); border-left: 4px solid transparent; transition: var(--transition); }
