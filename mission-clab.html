@@ -98,10 +98,10 @@
 
             <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h4><code>run-tests.sh</code> : Les tests sans redéployer</h4>
-                <p>Ce script suppose que le lab est déjà lancé. Il test juste de nouveau la connectivité et les performances. Utile pour refaire des tests sans perdre 3 minutes à redémarrer.</p>
+                <p>Ce script suppose que le lab est déjà lancé. Il teste juste de nouveau la connectivité et les performances. Utile pour refaire des tests sans perdre 3 minutes à redémarrer.</p>
             </div>
 
-            <p style="margin-top:20px;"><strong>Le défi :</strong> Les routeurs prennent du temps à converger. Mon script avancait trop vite avant les routeurs virtualisée ne soit prêt. J'ai mis en place une boucle qui teste toutes les 5 secondes jusqu'à ce que le ping réussisse (avec un timeout de 4 minutes max).</p>
+            <p style="margin-top:20px;"><strong>Le défi :</strong> Les routeurs prennent du temps à converger. Mon script avançait trop vite avant que les routeurs virtualisés ne soient prêts. J'ai mis en place une boucle qui teste toutes les 5 secondes jusqu'à ce que le ping réussisse (avec un timeout de 4 minutes max).</p>
 
             <h3 style="margin-top:30px;"><i class="fas fa-file-code" style="color:var(--primary); margin-right:10px;"></i> Le code</h3>
 
@@ -398,7 +398,7 @@ default via 172.20.20.1 dev eth0
                     <li><strong>Automatisation robuste :</strong> Gérer les timeouts, les erreurs silencieuses, et donner du feedback clair (logs + exit codes)</li>
                     <li><strong>Débogage réseau :</strong> Utiliser <code>docker exec</code> pour accéder aux espaces réseau, comprendre les adjacences IS-IS avec <code>show isis adjacency</code></li>
                     <li><strong>Infrastructure as Code (IaC) :</strong> Le YAML n'est pas qu'une simple configuration — c'est du code qu'on versionne pour documenter et reproduire l'infrastructure</li>
-                    <li><strong>Travail en équipe :</strong> Documenter clairement pour que toute les personnes de l'équipe puisse redéployer sans moi après mon départ</li>
+                    <li><strong>Travail en équipe :</strong> Documenter clairement pour que toutes les personnes de l'équipe puissent redéployer sans moi après mon départ</li>
                 </ul>
 
                 <h4 style="margin-top: 20px; color: #0066cc;">Transversalité :</h4>
