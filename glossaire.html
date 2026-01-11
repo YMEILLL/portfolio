@@ -24,8 +24,8 @@
                             <li><a href="mission-server.html" class="transition-link">3. Serveur pour Containerlab</a></li>
                         </ul>
                     </li>
-                    <li><a href="glossaire.html" class="active transition-link">Glossaire</a></li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                    <li><a href="glossaire.html" class="active transition-link" style="font-size: 0.5em;">Glossaire</a></li>
                 </ul>
             </nav>
         </div>
@@ -240,15 +240,23 @@
                     <p>Pouvoir administrer un serveur depuis un autre endroit, de manière chiffre et authentifiée. SSH et Bastion permettent ça en production tout en minimisant les risques.</p>
                 </div>
 
+                <div class="glossary-term" id="dmz">
+                    <h4>DMZ (DeMilitarized Zone)</h4>
+                    <p>Zone réseau intermédiaire entre l'Internet public et le réseau interne. Les serveurs de la DMZ (comme le Bastion) sont moins protégés que le réseau interne, mais plus que l'Internet. Réduit le risque de compromission des serveurs critiques.</p>
+                </div>
+
+                <div class="glossary-term" id="soc">
+                    <h4>SOC (Security Operations Center)</h4>
+                    <p>Centre opérationnel de sécurité. Équipe et infrastructure dédiées à la surveillance, détection et réponse aux incidents de sécurité en temps réel. Le SOC analyse les alertes, identifie les menaces et coordonne la réponse aux cyberattaques.</p>
+                </div>
+
+                <div class="glossary-term" id="siem">
+                    <h4>SIEM (Security Information and Event Management)</h4>
+                    <p>Système qui collecte, corrèle et analyse les logs de sécurité provenant de multiples sources (firewalls, serveurs, applications). Permet de détecter des comportements anormaux et des attaques en croisant les données. Outil central dans un SOC.</p>
+                </div>
+
             </div>
 
-        </div>
-
-        <hr style="border:0; border-top:2px solid var(--primary); margin:50px 0;">
-
-        <div style="background: #fff3cd; padding: 2rem; border-radius: 8px; border-left: 5px solid #ffc107;">
-            <h3 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: #ffc107; margin-right: 10px;"></i>Comment utiliser ce glossaire ?</h3>
-            <p>Sur les pages de missions, les termes techniques sont <span style="color: #0066cc; text-decoration: underline;">soulignés et en bleu</span>. Cliquez dessus pour revenir à cette page et consulter l'explication. Si un terme vous paraît obscur pendant votre lecture, n'hésitez pas à l'explorer ici.</p>
         </div>
 
     </div>

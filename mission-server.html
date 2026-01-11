@@ -24,8 +24,8 @@
                             <li><a href="mission-server.html" class="transition-link">3. Serveur pour Containerlab</a></li>
                         </ul>
                     </li>
-                    <li><a href="glossaire.html" class="transition-link">Glossaire</a></li>
                     <li><a href="bilan.html" class="transition-link">Bilan</a></li>
+                    <li><a href="glossaire.html" class="transition-link" style="font-size: 0.5em;">Glossaire</a></li>
                 </ul>
             </nav>
         </div>
@@ -84,19 +84,19 @@
                     <ul style="list-style-type:circle; margin-left:20px; line-height:1.8;">
                         <li><strong>Installation Physique :</strong> Rackage dans la baie, câblage réseau uplink (10 Gbps) et alimentation redondée.</li>
                         <li><strong>OS & Système :</strong> Installation d'<strong><a href="glossaire.html#ubuntu-server" class="glossary-link">Ubuntu Server</a> 20.04 LTS</strong>. J'ai privilégié un OS <a href="glossaire.html#linux" class="glossary-link">Linux</a> natif (pas de virtualisation type ESXi) pour maximiser les performances de <a href="glossaire.html#docker" class="glossary-link">Docker</a>.</li>
-                        <li><strong>Sécurisation :</strong> Configuration d'un accès distant via <strong><a href="glossaire.html#bastion" class="glossary-link">Bastion SSH</a></strong> pour administrer le serveur depuis mon poste de travail en toute sécurité.</li>
+                        <li><strong>Sécurisation :</strong> Apprentissage de l'utilisation d'un accès distant via <strong><a href="glossaire.html#bastion" class="glossary-link">Bastion SSH</a></strong> pour administrer le serveur depuis mon poste de travail en toute sécurité.</li>
                     </ul>
                 </div>
             </div>
 
             <h3 style="margin-top:30px;">Preuve de fonctionnement</h3>
-            <p>Une fois le serveur opérationnel, j'ai vérifié les ressources disponibles. Cette étape a marqué la fin des limitations matérielles et le début de la phase d'automatisation (Mission 2).</p>
+            <p>Une fois le serveur opérationnel, j'ai vérifié les ressources disponibles. Cette étape a marqué la fin des limitations matérielles et le début de la phase d'automatisation à grande échelle.</p>
             
             <pre style="margin-top:10px;">
 <span class="code-comment"># Connexion au serveur via le Bastion</span>
-<span class="code-variable">youenn@pc-pro</span>:~$ ssh -J bastion.orange.intra youenn@192.168.10.5
+<span class="code-variable">youenn@pc-pro</span>:~$ ssh -J bastion.orange.intra youenn@192.X.X.X
 <span class="code-variable">youenn@dell-r730</span>:~$ htop
-<span class="code-comment"># Résultat : 128 Go de RAM disponibles, 32 cœurs CPU.
+<span class="code-comment"># Résultat : 56 Go de RAM disponibles, 2x Xeon E5.
 # Le serveur est prêt à accueillir les topologies massives.</span></pre>
 
             <div class="reflexive-box">
@@ -130,9 +130,9 @@
                 <h4 style="margin-top: 20px; color: #27ae60;"><i class="fas fa-lightbulb"></i> Apprentissages Clés & Progression</h4>
                 <ul style="margin-left:20px; list-style-type:none; margin-top:10px;">
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Technique :</strong> Découverte du hardware serveur (Dell iDRAC, contrôleurs RAID, alimentation redondée). Maîtrise de l'administration <a href="glossaire.html#linux" class="glossary-link">Linux</a> en ligne de commande (SSH, utilisateurs, permissions).</li>
-                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Sécurité :</strong> Compréhension de l'architecture Bastion (DMZ, isolation réseau) et de son rôle dans la sécurité opérationnelle. Configuration de l'authentification par clés SSH.</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Sécurité :</strong> Compréhension de l'architecture Bastion (<a href="glossaire.html#dmz" class="glossary-link">DMZ</a>, isolation réseau) et de son rôle dans la sécurité opérationnelle. Configuration de l'authentification par clés SSH.</li>
                     <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Méthode :</strong> Importance de la documentation (position en baie, adresse IP, procédure d'accès) pour le travail d'équipe et la maintenance future.</li>
-                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Soft Skills :</strong> Travail collaboratif efficace. Humilité pour demander de l'aide sur des aspects physiques que je ne maîtrisais pas. Adaptabilité face à un environnement nouveau (datacenter).</li>
+                    <li style="margin-bottom:10px;"><i class="fas fa-check-circle" style="color:#27ae60; margin-right:8px;"></i><strong>Soft Skills :</strong> J'ai appris à travailler en équipe avec M. Tran, à demander de l'aide quand je ne savais pas faire quelque chose, et à m'adapter à un environnement complètement nouveau (le datacenter).</li>
                 </ul>
 
                 <h4 style="margin-top: 20px; color: #2980b9;"><i class="fas fa-graduation-cap"></i> Apprentissages Critiques (AC) Mobilisés & Niveau Atteint</h4>
